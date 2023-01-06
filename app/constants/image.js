@@ -4,4 +4,5 @@ export default {
     back: require("../assets/images/left-arrow.png"),
     menu: require("../assets/images/menu.png"),
     notification: require("../assets/images/active.png"),
+    oclock: require("../assets/images/clock.png"),
 };

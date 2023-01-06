@@ -34,7 +34,7 @@ export class HomeScreen extends Component {
               <Image source={Images.notification} style={styles.icon} />
             </TouchableOpacity>
           </View>
-          <SliderMovieTopRated onPresseds={() => navigation.navigate('MovieDetail')}></SliderMovieTopRated>
+          <SliderMovieTopRated onPresseds={() => navigation.navigate('MovieDetail', { item: "item" })}></SliderMovieTopRated>
           <Popular></Popular>
           <UpComing></UpComing>
         </SafeAreaView>
