@@ -1,7 +1,7 @@
 /* eslint-disable prettier/prettier */
 import React from 'react';
-import {Text} from 'react-native';
-import {Styles, sizeFont, sizeWidth, sizeHeight} from '@/commons';
+import { Text } from 'react-native';
+import { Styles, sizeFont, sizeWidth, sizeHeight } from '@/constants';
 
 function CustomText(props) {
   const {
@@ -22,14 +22,14 @@ function CustomText(props) {
         Styles.text,
         white && Styles.textWhite,
         bold && Styles.bold,
-        color && {color},
+        color && { color },
         paddingHorizontal && {
           paddingHorizontal: sizeWidth(paddingHorizontal),
         },
         paddingVertical && {
           paddingVertical: sizeHeight(paddingVertical),
         },
-        size && {fontSize: sizeFont(size), lineHeight: sizeFont(size + 6)},
+        size && { fontSize: sizeFont(size), lineHeight: sizeFont(size + 6) },
         style,
       ]}>
       {children}

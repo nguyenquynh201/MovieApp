@@ -1,6 +1,6 @@
 /* eslint-disable prettier/prettier */
 export default {
-    bold: {
-        fontWeight: '500',
-      },
+  bold: {
+    fontWeight: 'w500',
+  },
 };

@@ -1,8 +1,7 @@
-/* eslint-disable react/react-in-jsx-scope */
-/* eslint-disable prettier/prettier */
 import { createStackNavigator } from '@react-navigation/stack';
 import { NavigationContainer } from '@react-navigation/native';
-import HomeScreen from '../screen/HomeScreen';
+import HomeScreen from '../screen/home/HomeScreen';
+import MovieDetail from '@/screen/detail/home_detail/MovieDetail';
 const Stack = createStackNavigator();
 
 function RootStack() {
@@ -10,7 +9,10 @@ function RootStack() {
         <Stack.Navigator>
             <Stack.Screen name="Home" component={HomeScreen} options={
                 { headerShown: false }} />
+            <Stack.Screen name="MovieDetail" component={MovieDetail} options={
+                { headerShown: false }} />
         </Stack.Navigator>
+
     );
 }
 const MainNavigator = () => {

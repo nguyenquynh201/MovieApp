@@ -2,6 +2,7 @@
 import * as Api from "./api";
 import { Colors, colorOpacityMaker, percentToHex } from './colors';
 import { sizeFont, sizeScale, sizeHeight, sizeWidth } from './Responsive';
+import Images from './image';
 import Styles from './styles';
 import Config from './config';
 export {
@@ -15,4 +16,5 @@ export {
     sizeHeight,
     sizeWidth,
     Styles,
+    Images
 };
