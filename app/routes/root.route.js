@@ -7,7 +7,7 @@ const Stack = createStackNavigator();
 function RootStack() {
     return (
         <Stack.Navigator>
-            <Stack.Screen name="Home" component={HomeScreen} options={
+            <Stack.Screen name="SignUpScreen" component={SignUpScreen} options={
                 { headerShown: false }} />
             <Stack.Screen name="MovieDetail" component={MovieDetail} options={
                 { headerShown: false }} />
