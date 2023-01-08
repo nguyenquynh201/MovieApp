@@ -1,51 +1,57 @@
 /* eslint-disable prettier/prettier */
-import { Text, View, StyleSheet, Image, Dimensions, TouchableOpacity } from 'react-native';
-import React, { Component } from 'react';
-import { SafeAreaView } from 'react-native-safe-area-context';
-import { Styles, Colors, sizeHeight, sizeWidth, sizeScale, Images } from "@/constants"
+import { Text, View, StyleSheet, Image, Dimensions, TouchableOpacity, ActivityIndicator } from 'react-native';
+import React, { Component, useEffect, useState } from 'react';
+import { initialWindowMetrics, SafeAreaView } from 'react-native-safe-area-context';
+import { Styles, Colors, sizeHeight, sizeWidth, sizeScale, Images, Config } from "@/constants"
 import { FlatList, ScrollView } from 'react-native-gesture-handler';
 import Menu from '../../assets/svg/menu.svg';
 import SliderMovieTopRated from './components/SliderMovieTopRated';
 import Popular from './components/Popular';
 import UpComing from './components/UpComing';
 import { UIText } from '@/components';
-export class HomeScreen extends Component {
+import MovieTopRateApi from '@/controllers/api/MovieTopRateApi';
+import { useNavigation } from '@react-navigation/native';
 
-  render() {
-    const { navigation } = this.props;
-    const image = [
-      "https://image.tmdb.org/t/p/original/tmU7GeKVybMWFButWEGl2M4GeiP.jpg",
-      "https://image.tmdb.org/t/p/original/wPU78OPN4BYEgWYdXyg0phMee64.jpg",
-      "https://image.tmdb.org/t/p/original/kGzFbGhp99zva6oZODW5atUtnqi.jpg",
-      "https://image.tmdb.org/t/p/original/zb6fM1CX41D9rF9hdgclu0peUmy.jpg",
-      "https://image.tmdb.org/t/p/original/vI3aUGTuRRdM7J78KIdW98LdxE5.jpg",
-    ];
-    onChanged = (nativeEvent) => {
+const HomeScreen = () => {
+  const navigation = useNavigation();
+  const [movies, setMovies] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
+  useEffect(() => {
+    MovieTopRateApi.getListMovieTopRated().then((data) => {
+      // console.log(data['results']);
+      setMovies(data['results']);
+      setIsLoading(true);
+      console.log("movies : " + movies[0]);
+    }).catch((error) => {
+      console.log(error);
+    })
+  }, []);
+  return (
+    <ScrollView >
+      {isLoading ? <SafeAreaView style={styles.container}  >
+        <View style={styles.header}>
+          <TouchableOpacity style={styles.bgIcon}>
+            <Image source={Images.menu} style={styles.icon} />
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.bgIcon}>
+            <Image source={Images.notification} style={styles.icon} />
+          </TouchableOpacity>
+        </View>
+        <SliderMovieTopRated  movies={movies}></SliderMovieTopRated>
+        <Popular movies={movies} ></Popular>
 
-    }
-    return (
-      <ScrollView >
-        <SafeAreaView style={styles.container}  >
-          <View style={styles.header}>
-            <TouchableOpacity style={styles.bgIcon}>
-              <Image source={Images.menu} style={styles.icon} />
-            </TouchableOpacity>
-            <TouchableOpacity style={styles.bgIcon}>
-              <Image source={Images.notification} style={styles.icon} />
-            </TouchableOpacity>
-          </View>
-          <SliderMovieTopRated onPresseds={() => navigation.navigate('MovieDetail', { item: "item" })}></SliderMovieTopRated>
-          <Popular></Popular>
-          <UpComing></UpComing>
-        </SafeAreaView>
-      </ScrollView>
-    );
-  }
+        <UpComing></UpComing>
+      </SafeAreaView> : <View style={styles.loading}><ActivityIndicator /></View>}
+
+
+    </ScrollView>
+  );
 };
+export default HomeScreen;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: Colors.primary
+    backgroundColor: Colors.primary,
   },
   header: {
     flexDirection: 'row',
@@ -106,5 +112,10 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
     marginHorizontal: 20
   },
+  loading: {
+    height: Dimensions.get('screen').height,
+    justifyContent: 'center',
+    alignContent: 'center',
+    backgroundColor: Colors.primary
+  }
 });
-export default HomeScreen;

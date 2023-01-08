@@ -2,7 +2,8 @@ import { View, Text, TouchableOpacity, StyleSheet, Image } from 'react-native'
 import React from 'react'
 import { Styles, Colors, sizeHeight, sizeWidth, sizeScale, Images } from "@/constants"
 import { FlatList, ScrollView } from 'react-native-gesture-handler';
-const Popular = () => {
+const Popular = ({ movies }) => {
+    console.log(movies);
     const image = [
         "https://image.tmdb.org/t/p/original/tmU7GeKVybMWFButWEGl2M4GeiP.jpg",
         "https://image.tmdb.org/t/p/original/wPU78OPN4BYEgWYdXyg0phMee64.jpg",
@@ -26,9 +27,9 @@ const Popular = () => {
                 </TouchableOpacity>
             </View>
             <View>
-                <FlatList data={image}
+                <FlatList data={movies}
                     renderItem={({ item, index }) => <TouchableOpacity key={index}>
-                        <Image key={index} resizeMode='cover' style={styles.image} source={{ uri: item }} />
+                        <Image key={index} resizeMode='cover' style={styles.image} source={{ uri: "https://image.tmdb.org/t/p/original" + item?.backdrop_path }} />
                         <View style={styles.componentOpacity}>
                         </View>
                         <View style={styles.componentPlay}>
@@ -50,7 +51,7 @@ const Popular = () => {
                         </View>
 
                     </TouchableOpacity>}
-                    keyExtractor={(item, index) => index.toString()}
+                    keyExtractor={(item, index) => item?.id?.toString()}
                     horizontal />
 
             </View>

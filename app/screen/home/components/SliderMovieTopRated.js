@@ -1,19 +1,15 @@
 import { View, Text, ScrollView, Image, StyleSheet, Dimensions, useWindowDimensions, TouchableOpacity } from 'react-native'
 import { Styles, Colors, sizeHeight, sizeWidth, sizeScale, Images } from "@/constants"
 import React, { useState } from 'react'
-import Animated, { useSharedValue, useAnimatedStyle, useAnimatedScrollHandler, interpolate } from 'react-native-reanimated'
-const SliderMovieTopRated = ({ onPresseds }) => {
-    const image = [
-        "https://image.tmdb.org/t/p/original/tmU7GeKVybMWFButWEGl2M4GeiP.jpg",
-        "https://image.tmdb.org/t/p/original/wPU78OPN4BYEgWYdXyg0phMee64.jpg",
-        "https://image.tmdb.org/t/p/original/kGzFbGhp99zva6oZODW5atUtnqi.jpg",
-        "https://image.tmdb.org/t/p/original/zb6fM1CX41D9rF9hdgclu0peUmy.jpg",
-        "https://image.tmdb.org/t/p/original/vI3aUGTuRRdM7J78KIdW98LdxE5.jpg",
-    ];
+import Animated, { useSharedValue, useAnimatedStyle, useAnimatedScrollHandler, interpolate } from 'react-native-reanimated';
+import { useNavigation } from '@react-navigation/native';
+const SliderMovieTopRated = ({ movies }) => {
+    console.log("hihihihi" + movies);
+    const navigation = useNavigation();
+
     onChanged = (nativeEvent) => {
 
     }
-    const [newImage] = useState([{ key: 'spacer-left' }, ...image, { key: 'spacer-right' }]);
     const { width } = useWindowDimensions();
     const SIZE = width * 0.7;
     const SPACER = (width - SIZE) / 2;
@@ -40,7 +36,8 @@ const SliderMovieTopRated = ({ onPresseds }) => {
             >
                 {
 
-                    image.map((item, index) => {
+                    movies.map((item, index) => {
+                        {/* console.log("https://image.tmdb.org/t/p/original" + item?.backdrop_path) */ }
                         const style = useAnimatedStyle(() => {
                             const scale = interpolate(
                                 x.value,
@@ -50,26 +47,26 @@ const SliderMovieTopRated = ({ onPresseds }) => {
                                 transform: [{ scale }]
                             }
                         });
-                        if (!image) {
+                        if (!movies) {
                             return <View style={{ width: SPACER }} key={index} />
 
 
                         }
-                        return <TouchableOpacity style={{ width: SIZE }} key={index} onPress={onPresseds}>
+                        return <TouchableOpacity style={{ width: SIZE }} key={index} onPress={() => navigation.navigate('MovieDetail', { item: item })}>
 
                             <Animated.View style={[styles.imageContainer, style]}>
-                                <Image key={index} resizeMode='cover' style={styles.image} source={{ uri: item }} />
+                                <Image key={index} resizeMode='cover' style={styles.image} source={{ uri: "https://image.tmdb.org/t/p/original" + item?.backdrop_path }} />
 
                             </Animated.View>
 
                             <View style={styles.stack}>
-                                <View>
+                                <View style={styles.componentTitle}>
                                     <Text style={styles.title}>
-                                        hihih
+                                        {item?.original_title}
                                     </Text>
                                     <View style={styles.componentRate}>
                                         <Image source={Images.start} style={styles.icon} />
-                                        <Text style={styles.titleRate}>Avatar : Water </Text>
+                                        <Text style={styles.titleRate}>{item?.vote_average + "/ 10"} </Text>
                                     </View>
                                 </View>
                                 <View style={styles.componentPlay}>
@@ -130,8 +127,12 @@ const styles = StyleSheet.create({
         height: sizeWidth(18),
 
     },
+    componentTitle: {
+        flex: 1
+    },
     componentRate: {
         flexDirection: 'row'
+
     },
     titleRate: {
         marginLeft: 5,

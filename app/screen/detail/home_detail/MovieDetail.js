@@ -1,72 +1,94 @@
-import { StyleSheet, Text, View, Image, Dimensions, TouchableOpacity } from 'react-native'
-import React, { useState } from 'react'
+import { StyleSheet, Text, View, Image, Dimensions, TouchableOpacity, ActivityIndicator } from 'react-native'
+import React, { useState, useEffect } from 'react'
 import { ScrollView } from 'react-native-gesture-handler';
 import HeaderDetail from './components/HeaderDetail';
 import { Colors, sizeHeight, Images, sizeScale } from '@/constants';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import MovieTopRateApi from '@/controllers/api/MovieTopRateApi';
 import YouTubePlay from 'react-native-youtube-iframe';
-const MovieDetail = (movie) => {
+const MovieDetail = (movies) => {
+    const movie = movies.route.params.item;
     console.log(movie);
+    const [movieItem, setMovie] = useState({});
+    const [isLoading, setIsLoading] = useState(false);
     const [isReadMoreShown, setReadMoreShown] = useState(false);
+    const [date, setDate] = useState(null);
+    useEffect(() => {
+        MovieTopRateApi.getMovieDetailById({ id: movie?.id }).then((data) => {
+            // console.log(data['results']);
+            setMovie(data);
+            setIsLoading(true);
+            console.log("movies : " + movieItem);
+            const dateObject = new Date(movieItem?.release_date);
+            setDate(dateObject);
+        }).catch((error) => {
+            console.log(error);
+        })
+    }, []);
     const onPressed = () => {
         setReadMoreShown(prevState => !prevState);
     }
 
     return (
-        <ScrollView  >
-            <SafeAreaView style={styles.container}>
-                <HeaderDetail onPresseds={() => { movie.navigation.goBack() }}>
 
-                </HeaderDetail>
-                <View style={styles.containerImage}>
-                    <Image
-                        source={{ uri: "https://image.tmdb.org/t/p/original/tmU7GeKVybMWFButWEGl2M4GeiP.jpg" }}
-                        style={styles.imagePoster}
-                        resizeMode='cover' />
-                </View>
-                <View style={styles.componentTitle}>
-                    <Text style={styles.nameMovie}>
-                        The GodFather
-                    </Text>
-                    <Text style={styles.titleGenres}>
-                        An offer you can't refuse
-                    </Text>
-                    <Text style={styles.titleDescription}>
-                        {isReadMoreShown ? "An Amazon princess comes to the world of Man in the grips of the First World War to confront the forces of evil and bring an end to human conflict. " : "hihihihihihi"}
-                    </Text>
-                    <TouchableOpacity onPress={onPressed}>
-                        <Text style={styles.showMore}>
-                            {isReadMoreShown ? "Hide" : "Show more"}
-                        </Text>
-                    </TouchableOpacity>
-                </View>
-                <View style={styles.componentReview}>
-                    <View style={styles.componentBg}>
-                        <Text style={styles.titleReview}>
-                            1972
-                        </Text>
+        <SafeAreaView style={styles.container}>
+            <HeaderDetail onPresseds={() => { movies.navigation.goBack() }}>
+            </HeaderDetail>
+            {isLoading ?
+                <ScrollView>
+                    <View style={styles.containerImage}>
+                        <Image
+                            source={{ uri: "https://image.tmdb.org/t/p/original" + movieItem?.poster_path }}
+                            style={styles.imagePoster}
+                            resizeMode='contain' />
                     </View>
-                    <View style={styles.componentBg}>
-                        <Image source={Images.start} style={styles.icon} />
-                        <Text style={styles.titleReview}>
-                            8.715 / 10
+                    <View style={styles.componentTitle}>
+                        <Text style={styles.nameMovie}>
+                            {movieItem?.original_title}
                         </Text>
-                    </View>
-                    <View style={styles.componentBg}>
-                        <Image source={Images.oclock} style={styles.icon} />
-                        <Text style={styles.titleReview}>
-                            175min
-                        </Text>
-                    </View>
-                </View>
-                <YouTubePlay
-                    height={sizeHeight(300)}
-                    play={true}
-                    videoId={"JoNPGqooNfQ"}
+                        <View style={styles.genres}>
+                            {movieItem?.genres.map((item, index) => <Text key={index} style={styles.titleGenres}>
+                                {item?.name}
+                            </Text>)}
+                        </View>
 
-                />
-            </SafeAreaView>
-        </ScrollView>
+                        <Text style={styles.titleDescription}>
+                            {isReadMoreShown ? movieItem?.overview : movieItem?.overview.substr(0, 150)}
+                        </Text>
+                        <TouchableOpacity onPress={onPressed}>
+                            <Text style={styles.showMore}>
+                                {isReadMoreShown ? "Hide" : "Show more"}
+                            </Text>
+                        </TouchableOpacity>
+                    </View>
+                    <View style={styles.componentReview}>
+                        <View style={styles.componentBg}>
+                            <Text style={styles.titleReview}>
+                                {1999}
+                            </Text>
+                        </View>
+                        <View style={styles.componentBg}>
+                            <Image source={Images.start} style={styles.icon} />
+                            <Text style={styles.titleReview}>
+                                {movieItem?.vote_average + "/ 10"}
+                            </Text>
+                        </View>
+                        <View style={styles.componentBg}>
+                            <Image source={Images.oclock} style={styles.icon} />
+                            <Text style={styles.titleReview}>
+                                {movieItem?.runtime + "min"}
+                            </Text>
+                        </View>
+                    </View>
+                    <YouTubePlay
+                        height={sizeHeight(200)}
+                        play={true}
+                        videoId={"JoNPGqooNfQ"}
+
+                    />
+                </ScrollView>
+                : <View style={styles.loading}><ActivityIndicator /></View>}
+        </SafeAreaView>
     )
 };
 
@@ -98,11 +120,17 @@ const styles = StyleSheet.create({
         fontSize: 24,
         fontWeight: 'bold'
     },
+    genres: {
+        flexDirection: 'row'
+
+    },
     titleGenres: {
         marginTop: 5,
         fontSize: 14,
         color: Colors.white,
-        opacity: 0.5
+        opacity: 0.5,
+        paddingHorizontal: 5
+
     },
     titleDescription: {
         marginTop: 5,
@@ -142,5 +170,11 @@ const styles = StyleSheet.create({
     viewMovie: {
         marginTop: 20,
         height: sizeHeight(300)
+    },
+    loading: {
+        height: Dimensions.get('screen').height,
+        justifyContent: 'center',
+        alignContent: 'center',
+        backgroundColor: Colors.primary
     }
 });
