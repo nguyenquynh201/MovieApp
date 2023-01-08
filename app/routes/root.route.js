@@ -1,7 +1,7 @@
 import { createStackNavigator } from '@react-navigation/stack';
 import { NavigationContainer } from '@react-navigation/native';
-import HomeScreen from '../screen/home/HomeScreen';
 import MovieDetail from '@/screen/detail/home_detail/MovieDetail';
+import HomeScreen from '@/screen/home/HomeScreen';
 const Stack = createStackNavigator();
 
 function RootStack() {
