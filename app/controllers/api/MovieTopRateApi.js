@@ -24,5 +24,28 @@ export default class MovieTopRateApi {
             return Promise.reject(error);
         }
     }
+    static getCategories = async () => {
+        const api = Config.apiUrl + '/genre/movie/list' + '?api_key=' + Config.apiKey;
+        try {
+            console.log(api);
+            let response = await axios.get(api);
+            return Promise.resolve(response.data);
+        } catch (error) {
+            console.log(error);
+            return Promise.reject(error);
+        }
+    }
+
+    static getReviewByMovieId = async (id) => {
+        const api = Config.apiUrl + `/movie/${id}/reviews` + '?api_key=' + Config.apiKey;
+        try {
+            console.log(api);
+            let response = await axios.get(api);
+            return Promise.resolve(response.data);
+        } catch (error) {
+            console.log(error);
+            return Promise.reject(error);
+        }
+    }
 }
 

@@ -1,22 +1,38 @@
 import { Colors } from '@/constants';
-import { View, Text, Image } from 'react-native';
-import Category from './component/category';
+import { View, Text, StyleSheet, Dimensions, ActivityIndicator } from 'react-native';
+import Category from './component/Category';
+import { ScrollView } from 'react-native-gesture-handler';
+import MovieTopRateApi from '@/controllers/api/MovieTopRateApi';
+import { useState, useEffect } from 'react';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 const CategoryScreen = () => {
+    const [categories, setCategories] = useState([]);
+    const [isLoading, setIsLoading] = useState(false);
+
+    useEffect(() => {
+        MovieTopRateApi.getCategories().then((data) => {
+            // console.log(data['results']);
+            setCategories(data['genres']);
+            setIsLoading(true);
+        }).catch((error) => {
+            console.log(error);
+        })
+    }, []);
+
     return (
         <View style={styles.root}>
             <Text style={styles.headTitle}>Category</Text>
 
             <View style={styles.line} />
 
-            <ScrollView style={styles.content}>
-                <Category></Category>
-                <Category></Category>
-                <Category></Category>
-                <Category></Category>
-                <Category></Category>
+            {isLoading ? <View >
+                <SafeAreaView >
 
-            </ScrollView>
+                    <Category categories={categories}></Category>
+
+                </SafeAreaView>
+            </View> : <View style={styles.loading}><ActivityIndicator /></View>}
         </View>
     );
 
@@ -29,7 +45,7 @@ const styles = StyleSheet.create({
         backgroundColor: Colors.primary,
     },
     headTitle: {
-        color: Colors.title,
+        color: "#ffffffff",
         padding: 20,
         fontSize: 28
     },
@@ -39,5 +55,19 @@ const styles = StyleSheet.create({
         borderBottomColor: 'white',
         borderBottomWidth: StyleSheet.hairlineWidth,
     },
+
+    content: {
+        paddingHorizontal: 20,
+        flexDirection: "row",
+        flexWrap: "wrap",
+        justifyContent: 'center',
+        alignContent: 'center'
+    },
+    loading: {
+        height: Dimensions.get('screen').height,
+        justifyContent: 'center',
+        alignContent: 'center',
+        backgroundColor: Colors.primary
+    }
 })
 export default CategoryScreen;

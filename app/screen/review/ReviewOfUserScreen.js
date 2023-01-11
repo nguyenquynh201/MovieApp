@@ -1,88 +1,59 @@
-import { View, Text, Image, StyleSheet, useWindowDimensions } from 'react-native';
-import cardoon from "../assets/hoathinh.jpg"
+import { Colors } from '@/constants';
+import { View, Text, StyleSheet, Dimensions, ActivityIndicator, Image, TouchableOpacity } from 'react-native';
+import { ScrollView } from 'react-native-gesture-handler';
+import MovieTopRateApi from '@/controllers/api/MovieTopRateApi';
+import { useState, useEffect } from 'react';
+import { FlatList } from 'react-native-gesture-handler';
+import Moment from 'moment';
 
 const ReviewOfUserScreen = () => {
+    // const movie = movies.route.params.item;
+    const [reviewOfUser, setReviewOfUser] = useState([]);
+    const [isLoading, setIsLoading] = useState(false);
+
+    useEffect(() => {
+        MovieTopRateApi.getReviewByMovieId('297762').then((data) => {
+            // console.log(data['results']);
+            setReviewOfUser(data['results']);
+            setIsLoading(true);
+            console.log("categories : " + reviewOfUser[0].name);
+        }).catch((error) => {
+            console.log(error);
+        })
+    }, []);
+
     return (
         <View style={styles.root}>
             <Text style={styles.headTitle}>Reviews</Text>
 
             <View style={styles.line} />
 
-            <View style={styles.content}>
-                <View style={styles.card}>
-                    <View style={styles.author}>
-                        <Image style={{ height: 50, width: 50 }} source={cardoon} resizeMode="contain" borderRadius={100} />
-                        <View>
-                            <Text style={styles.authorName}>Movie Queen41</Text>
-                            <Text style={styles.rating}>Rating: 7.0</Text>
+            {isLoading ? <View>
+                <FlatList numColumns={2} data={reviewOfUser} renderItem={({ item, index }) =>
+                    <TouchableOpacity key={index}>
+                        <View style={styles.content}>
+                            <View style={styles.card}>
+                                <View style={styles.author}>
+                                    <Image style={{ height: 50, width: 50 }} source={item.author_details.avatar_path} resizeMode="contain" borderRadius={100} />
+                                    <View>
+                                        <Text style={styles.authorName}>{item.author}</Text>
+                                        <Text style={styles.rating}>Rating: {item.author_details.rating}</Text>
+                                    </View>
+                                </View>
+                                <View style={styles.cardContent}>
+                                    <Text numberOfLines={2} style={styles.summaryContent}>{item.content}</Text>
+                                    <View style={styles.seeMore}>
+                                        <Text style={styles.seeLink}>See detail</Text>
+                                        <Text style={styles.createdAt}>Created at: {Moment(item.created_at).format("YYYY-MM HH:mm")}</Text>
+                                    </View>
+                                </View>
+                            </View>
                         </View>
-                    </View>
-                    <View style={styles.cardContent}>
-                        <Text numberOfLines={2} style={styles.summaryContent}>I'd just like to thank Patty Jenkins for making a DCIThoughtSheWasWithUniverse movie that wasn't fucking garbage. If I'm being completely honest, the two people</Text>
-                        <View style={styles.seeMore}>
-                            <Text style={styles.seeLink}>See detail</Text>
-                            <Text style={styles.createdAt}>Created at: 2022-06-23</Text>
-                        </View>
-                    </View>
-                </View>
-            </View>
-            <View style={styles.content}>
-                <View style={styles.card}>
-                    <View style={styles.author}>
-                        <Image style={{ height: 50, width: 50 }} source={cardoon} resizeMode="contain" borderRadius={100} />
-                        <View>
-                            <Text style={styles.authorName}>Movie Queen41</Text>
-                            <Text style={styles.rating}>Rating: 7.0</Text>
-                        </View>
-                    </View>
-                    <View style={styles.cardContent}>
-                        <Text numberOfLines={2} style={styles.summaryContent}>I'd just like to thank Patty Jenkins for making a DCIThoughtSheWasWithUniverse movie that wasn't fucking garbage. If I'm being completely honest, the two people</Text>
-                        <View style={styles.seeMore}>
-                            <Text style={styles.seeLink}>See detail</Text>
-                            <Text style={styles.createdAt}>Created at: 2022-06-23</Text>
-                        </View>
-                    </View>
-                </View>
 
-            </View>
-            <View style={styles.content}>
-                <View style={styles.card}>
-                    <View style={styles.author}>
-                        <Image style={{ height: 50, width: 50 }} source={cardoon} resizeMode="contain" borderRadius={100} />
-                        <View>
-                            <Text style={styles.authorName}>Movie Queen41</Text>
-                            <Text style={styles.rating}>Rating: 7.0</Text>
-                        </View>
-                    </View>
-                    <View style={styles.cardContent}>
-                        <Text numberOfLines={2} style={styles.summaryContent}>I'd just like to thank Patty Jenkins for making a DCIThoughtSheWasWithUniverse movie that wasn't fucking garbage. If I'm being completely honest, the two people</Text>
-                        <View style={styles.seeMore}>
-                            <Text style={styles.seeLink}>See detail</Text>
-                            <Text style={styles.createdAt}>Created at: 2022-06-23</Text>
-                        </View>
-                    </View>
-                </View>
+                    </TouchableOpacity>
+                } keyExtractor={(item, index) => item?.id?.toString()} />
 
-            </View>
-            <View style={styles.content}>
-                <View style={styles.card}>
-                    <View style={styles.author}>
-                        <Image style={{ height: 50, width: 50 }} source={cardoon} resizeMode="contain" borderRadius={100} />
-                        <View>
-                            <Text style={styles.authorName}>Movie Queen41</Text>
-                            <Text style={styles.rating}>Rating: 7.0</Text>
-                        </View>
-                    </View>
-                    <View style={styles.cardContent}>
-                        <Text numberOfLines={2} style={styles.summaryContent}>I'd just like to thank Patty Jenkins for making a DCIThoughtSheWasWithUniverse movie that wasn't fucking garbage. If I'm being completely honest, the two people</Text>
-                        <View style={styles.seeMore}>
-                            <Text style={styles.seeLink}>See detail</Text>
-                            <Text style={styles.createdAt}>Created at: 2022-06-23</Text>
-                        </View>
-                    </View>
-                </View>
-
-            </View>
+            </View> : <View style={styles.loading}><ActivityIndicator /></View>}
         </View>
     );
 
@@ -92,7 +63,8 @@ const ReviewOfUserScreen = () => {
 const styles = StyleSheet.create({
     root: {
         height: "100%",
-        backgroundColor: "#070D23"
+        backgroundColor: "#070D23",
+        paddingBottom: 100
     },
     headTitle: {
         color: "#ffffff",
@@ -107,9 +79,9 @@ const styles = StyleSheet.create({
     },
     content: {
         paddingHorizontal: 20,
-        // flexDirection: "column",
-        // justifyContent: 'center',
-        // alignContent: 'center'
+        flexDirection: "column",
+        justifyContent: 'center',
+        alignContent: 'center',
     },
     card: {
         margin: 5,
@@ -117,7 +89,8 @@ const styles = StyleSheet.create({
         borderRadius: 10,
         // flexDirection: "row",
         paddingHorizontal: 10,
-        paddingVertical: 10
+        paddingVertical: 10,
+        width: "100 %"
     },
 
     author: {
@@ -164,6 +137,12 @@ const styles = StyleSheet.create({
 
     createdAt: {
         color: "#ffffff"
+    },
+    loading: {
+        height: Dimensions.get('screen').height,
+        justifyContent: 'center',
+        alignContent: 'center',
+        backgroundColor: Colors.primary
     }
 })
 export default ReviewOfUserScreen;
