@@ -15,6 +15,7 @@ const CategoryScreen = () => {
             // console.log(data['results']);
             setCategories(data['genres']);
             setIsLoading(true);
+            console.log("categories : " + categories[0].name);
         }).catch((error) => {
             console.log(error);
         })
