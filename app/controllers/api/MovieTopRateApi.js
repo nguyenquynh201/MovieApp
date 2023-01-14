@@ -63,7 +63,7 @@ export default class MovieTopRateApi {
                 },
                 data: data,
             });
-
+            console.log(result);
             return result;
 
         } catch (error) {

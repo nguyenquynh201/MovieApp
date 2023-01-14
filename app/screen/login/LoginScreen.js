@@ -6,9 +6,10 @@ import CustomButton from '../../components/CustomButton';
 import { Colors } from '@/constants';
 import MovieTopRateApi from '@/controllers/api/MovieTopRateApi';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-
+import { useNavigation } from '@react-navigation/native';
 
 const LoginScreen = () => {
+    const navigation = useNavigation();
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [isLoading, setIsLoading] = useState(true);
@@ -19,8 +20,10 @@ const LoginScreen = () => {
             console.log(data)
             if (data.status === 200) {
                 AsyncStorage.setItem("user", data.data.signIn)
+
                 console.warn("Login success");
                 setIsLoading(true)
+                // navigation.replace('HomeScreen')
             }
         }).catch((error) => {
             console.log(error);

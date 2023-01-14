@@ -1,6 +1,6 @@
 import { createStackNavigator } from '@react-navigation/stack';
 import { NavigationContainer } from '@react-navigation/native';
-// import MovieDetail from '@/screen/detail/home_detail/MovieDetail';
+import MovieDetail from '@/screen/detail/home_detail/MovieDetail';
 import HomeScreen from '@/screen/home/HomeScreen';
 import CategoryScreen from '@/screen/category/CategoryScreen';
 import ReviewOfUserScreen from '@/screen/review/ReviewOfUserScreen';
@@ -12,6 +12,12 @@ function RootStack() {
     return (
         <Stack.Navigator>
             <Stack.Screen name="LoginScreen" component={LoginScreen} options={
+                { headerShown: false }} />
+            <Stack.Screen name="HomeScreen" component={HomeScreen} options={
+                { headerShown: false }} />
+            <Stack.Screen name="MovieDetail" component={MovieDetail} options={
+                { headerShown: false }} />
+            <Stack.Screen name="CategoryScreen" component={CategoryScreen} options={
                 { headerShown: false }} />
         </Stack.Navigator>
 

@@ -3,11 +3,13 @@ import React, { useState } from 'react';
 import Logo from '../assets/logo.png';
 import CustomInput from '../components/CustomInput';
 import CustomButton from '../components/CustomButton';
-
+import { useNavigation } from '@react-navigation/native';
 const LoginScreen = () => {
+    const navigation = useNavigation();
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const onSignInPress = () => {
+        navigation.navigate('HomeScreen')
         console.warn("Sign in");
     }
     const onForgotPsdPress = () => {

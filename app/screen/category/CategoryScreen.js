@@ -1,6 +1,6 @@
 import { Colors } from '@/constants';
 import { View, Text, StyleSheet, Dimensions, ActivityIndicator } from 'react-native';
-import Category from './component/Category';
+import Category from './component/category';
 import { ScrollView } from 'react-native-gesture-handler';
 import MovieTopRateApi from '@/controllers/api/MovieTopRateApi';
 import { useState, useEffect } from 'react';
