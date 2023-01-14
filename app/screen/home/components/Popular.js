@@ -38,7 +38,7 @@ const Popular = ({ movies }) => {
                         <View style={styles.componentOverlay}>
                             <View>
                                 <Text style={styles.nameMovie}>
-                                    hihih
+                                    {item?.original_title}
                                 </Text>
 
                                 <View style={styles.componentRate}>
@@ -90,7 +90,7 @@ const styles = StyleSheet.create({
     image: {
         marginTop: 20,
         borderRadius: sizeScale(20),
-        height: sizeScale(180),
+        height: sizeScale(220),
         width: sizeScale(200),
         paddingVertical: 20,
         paddingHorizontal: 20,
@@ -111,13 +111,14 @@ const styles = StyleSheet.create({
         height: 60,
         borderBottomEndRadius: sizeScale(20),
         borderBottomStartRadius: sizeScale(20),
-        backgroundColor: Colors.white,
-        opacity: 0.2,
-        height: sizeScale(60),
+        backgroundColor: Colors.black,
+        opacity: 0.5,
+        height: sizeScale(80),
         width: sizeScale(200),
 
     },
     nameMovie: {
+        width: sizeWidth(180),
         color: Colors.white,
         fontSize: 20,
         fontWeight: 'bold'
@@ -140,7 +141,7 @@ const styles = StyleSheet.create({
     },
     componentPlay: {
         right: 40,
-        bottom: 50,
+        bottom: 80,
         position: 'absolute',
         width: sizeHeight(24),
         height: sizeHeight(24),

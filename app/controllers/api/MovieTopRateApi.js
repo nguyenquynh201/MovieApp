@@ -13,11 +13,46 @@ export default class MovieTopRateApi {
             return Promise.reject(error);
         }
     };
+    static getListMoviePopular = async () => {
+        const api = Config.apiUrl + '/movie/popular?api_key=' + Config.apiKey + '&language=en-US&page=1';
+        try {
+            console.log(api);
+            let response = await axios.get(api);
+            return Promise.resolve(response.data);
+        } catch (error) {
+            console.log(error);
+            return Promise.reject(error);
+        }
+    };
+    static getListMovieUpcoming = async () => {
+        const api = Config.apiUrl + '/movie/upcoming?api_key=' + Config.apiKey + '&language=en-US&page=1';
+        try {
+            console.log(api);
+            let response = await axios.get(api);
+            return Promise.resolve(response.data);
+        } catch (error) {
+            console.log(error);
+            return Promise.reject(error);
+        }
+    };
     static getMovieDetailById = async ({ id }) => {
         const api = Config.apiUrl + '/movie/' + id + '?api_key=' + Config.apiKey + '&append_to_response=videos';
         try {
             console.log(api);
             let response = await axios.get(api);
+            // console.log(response.data);
+            return Promise.resolve(response.data);
+        } catch (error) {
+            console.log(error);
+            return Promise.reject(error);
+        }
+    }
+    static getMovieSimilar = async ({ id }) => {
+        const api = Config.apiUrl + '/movie/' + id + '/similar?api_key=' + Config.apiKey + '&language=en-US&page=1';
+        try {
+            console.log(api);
+            let response = await axios.get(api);
+            console.log(response.data);
             return Promise.resolve(response.data);
         } catch (error) {
             console.log(error);
@@ -48,27 +83,5 @@ export default class MovieTopRateApi {
         }
     }
 
-    static login = async (data) => {
-        try {
-            const axiosPost = await axios.create({
-                baseURL: 'http://103.57.222.70:8083/api',
-                responseType: 'json',
-                withCredentials: true,
-            });
-
-            const result = axiosPost('/app/auth/sign-in', {
-                method: 'POST',
-                headers: {
-                    'content-type': 'application/json',
-                },
-                data: data,
-            });
-            console.log(result);
-            return result;
-
-        } catch (error) {
-            return error.response.data;
-        }
-    }
 }
 

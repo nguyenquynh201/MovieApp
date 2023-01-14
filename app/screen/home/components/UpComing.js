@@ -2,7 +2,7 @@ import { View, Text, TouchableOpacity, StyleSheet, Image } from 'react-native'
 import React from 'react'
 import { Styles, Colors, sizeHeight, sizeWidth, sizeScale, Images } from "@/constants"
 import { FlatList, ScrollView } from 'react-native-gesture-handler';
-const Popular = () => {
+const Popular = ({ movies }) => {
     const image = [
         "https://image.tmdb.org/t/p/original/tmU7GeKVybMWFButWEGl2M4GeiP.jpg",
         "https://image.tmdb.org/t/p/original/wPU78OPN4BYEgWYdXyg0phMee64.jpg",

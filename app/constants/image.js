@@ -5,4 +5,7 @@ export default {
     menu: require("../assets/images/menu.png"),
     notification: require("../assets/images/active.png"),
     oclock: require("../assets/images/clock.png"),
+    icon_home: require("../assets/images/home.png"),
+    icon_result: require("../assets/images/business.png"),
+    icon_profile: require("../assets/images/user.png"),
 };

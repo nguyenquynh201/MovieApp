@@ -9,7 +9,7 @@ const LoginScreen = () => {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const onSignInPress = () => {
-        navigation.navigate('HomeScreen')
+        navigation.navigate('MainScreen')
         console.warn("Sign in");
     }
     const onForgotPsdPress = () => {
