@@ -15,10 +15,10 @@ const Stack = createStackNavigator();
 function RootStack() {
     return (
         <Stack.Navigator>
-            {/* <Stack.Screen name="LoginScreen" component={LoginScreen} options={
+            <Stack.Screen name="LoginScreen" component={LoginScreen} options={
                 { headerShown: false }} />
             <Stack.Screen name="SignUp" component={SignUpScreen} options={
-                { headerShown: false }} /> */}
+                { headerShown: false }} />
             <Stack.Screen name="MainScreen" component={MainScreen} options={
                 { headerShown: false }} />
             <Stack.Screen name="Home" component={HomeScreen} options={
