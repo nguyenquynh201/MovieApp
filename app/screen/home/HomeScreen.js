@@ -1,5 +1,5 @@
 /* eslint-disable prettier/prettier */
-import { Text, View, StyleSheet, Image, Dimensions, TouchableOpacity, ActivityIndicator } from 'react-native';
+import { Text, View, StyleSheet, Image, Dimensions, TouchableOpacity, ActivityIndicator, RefreshControl } from 'react-native';
 import React, { Component, useEffect, useState } from 'react';
 import { initialWindowMetrics, SafeAreaView } from 'react-native-safe-area-context';
 import { Styles, Colors, sizeHeight, sizeWidth, sizeScale, Images, Config } from "@/constants"
@@ -15,36 +15,77 @@ import { useNavigation } from '@react-navigation/native';
 const HomeScreen = () => {
   const navigation = useNavigation();
   const [movies, setMovies] = useState([]);
+  const [moviePopulars, setMoviesPopular] = useState([]);
+  const [movieUpcomings, setMoviesUpcoming] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
+  // const [isRefresh, setIsRefresh] = useState(false);
   useEffect(() => {
+    fetchApiTopRated();
+    fetchApiPopular();
+    fetchApiUpComming();
+  }, []);
+  const fetchApiTopRated = () => {
     MovieTopRateApi.getListMovieTopRated().then((data) => {
       // console.log(data['results']);
       setMovies(data['results']);
+      console.log("movies : " + movies[0]);
+    }).catch((error) => {
+      console.log(error);
+    })
+  }
+  const fetchApiPopular = () => {
+    MovieTopRateApi.getListMoviePopular().then((data) => {
+      // console.log(data['results']);
+      setMoviesPopular(data['results']);
+      console.log("movies : " + movies[0]);
+    }).catch((error) => {
+      console.log(error);
+    })
+  }
+  const fetchApiUpComming = () => {
+    MovieTopRateApi.getListMovieUpcoming().then((data) => {
+      // console.log(data['results']);
+      setMoviesUpcoming(data['results']);
       setIsLoading(true);
       console.log("movies : " + movies[0]);
     }).catch((error) => {
       console.log(error);
     })
-  }, []);
+  }
+  // const onRefresh = () => {
+  //   setIsRefresh(true)
+  //   fetchApiTopRated();
+  //   fetchApiPopular();
+  //   fetchApiUpComming();
+  //   setIsRefresh(false);
+  // }
   return (
-    <ScrollView >
-      {isLoading ? <SafeAreaView style={styles.container}  >
-        <View style={styles.header}>
-          <TouchableOpacity style={styles.bgIcon}>
-            <Image source={Images.menu} style={styles.icon} />
-          </TouchableOpacity>
-          <TouchableOpacity style={styles.bgIcon}>
-            <Image source={Images.notification} style={styles.icon} />
-          </TouchableOpacity>
-        </View>
-        <SliderMovieTopRated  movies={movies}></SliderMovieTopRated>
-        <Popular movies={movies} ></Popular>
+    <SafeAreaView style={styles.container} >
+      <View style={styles.header}>
+        <TouchableOpacity style={styles.bgIcon}>
+          <Image source={Images.menu} style={styles.icon} />
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.bgIcon}>
+          <Image source={Images.notification} style={styles.icon} />
+        </TouchableOpacity>
+      </View>
 
-        <UpComing></UpComing>
-      </SafeAreaView> : <View style={styles.loading}><ActivityIndicator /></View>}
+      {isLoading ? <ScrollView
+      //  refreshControl={
+      //   <RefreshControl refreshing={isRefresh} onRefresh={() => onRefresh()}
+      //    />
+      // }
+      >
+
+        <SliderMovieTopRated movies={movies}></SliderMovieTopRated>
+        <Popular movies={moviePopulars} ></Popular>
+
+        <UpComing movies={movieUpcomings}></UpComing>
+      </ScrollView> : <View style={styles.loading}><ActivityIndicator /></View>}
 
 
-    </ScrollView>
+
+    </SafeAreaView>
   );
 };
 export default HomeScreen;

@@ -1,87 +1,81 @@
 import { StyleSheet, Text, View, Image, Dimensions, TouchableOpacity, ActivityIndicator } from 'react-native'
 import React, { useState, useEffect } from 'react'
-import { ScrollView, FlatList } from 'react-native-gesture-handler';
-import HeaderDetail from './components/HeaderDetail';
+
 import { Colors, sizeHeight, Images, sizeScale, sizeWidth } from '@/constants';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import MovieTopRateApi from '@/controllers/api/MovieTopRateApi';
 import YouTubePlay from 'react-native-youtube-iframe';
-import InformationDetail from './components/InformationDetail';
-import SimilarItem from './components/SimilarItem';
-const MovieDetail = (movies) => {
-    const movie = movies.route.params.item;
-    console.log(movie);
-    const [movieItem, setMovie] = useState({});
-    const [moviesSimilar, setMovieSimilar] = useState([]);
-    const [isLoading, setIsLoading] = useState(false);
+
+const InformationDetail = ({ movieItems, onPresseds, play, video }) => {
+    var person = Object.create(movieItems)
+    console.log("hihihihi" + JSON.stringify(movieItems));
+    const [isReadMoreShown, setReadMoreShown] = useState(false);
     const [date, setDate] = useState(null);
-    const [video, setVideo] = useState("");
-    const [play, setPlayVideo] = useState(false);
-    useEffect(() => {
-        fetchApiMovieById();
-        fetchApiSimilar();
-    }, []);
-    const fetchApiMovieById = () => {
-        MovieTopRateApi.getMovieDetailById({ id: movie?.id }).then((data) => {
-            // console.log("vide...." + data.videos.results);
-            setMovie(data);
-            if (data.videos.results != []) {
-                data.videos.results.forEach(element => {
-                    if (element.type == "Trailer") {
-                        // console.log("vide...." + item["key"]);
-                        setVideo(item["key"]);
-                        return;
-                    } else {
-                        setVideo(data.videos.results[0]["key"]);
-                    }
-                });
 
-            }
-
-            console.log("movies : " + movieItem);
-            const dateObject = new Date(movieItem?.release_date);
-            setDate(dateObject);
-        }).catch((error) => {
-            console.log(error);
-        })
+    const onPressed = () => {
+        setReadMoreShown(prevState => !prevState);
     }
-    const fetchApiSimilar = () => {
-        MovieTopRateApi.getMovieSimilar({ id: movie?.id }).then((data) => {
-            setMovieSimilar(data['results']);
-            setIsLoading(true);
-        }).catch((error) => {
-            console.log(error);
-        })
-    }
-
     return (
+        <View>
+            <View style={styles.containerImage}>
+                <Image
+                    source={{ uri: "https://image.tmdb.org/t/p/original" + movieItems?.poster_path }}
+                    style={styles.imagePoster}
+                    resizeMode='contain' />
+            </View>
+            <View style={styles.componentTitle}>
+                <Text style={styles.nameMovie}>
+                    {movieItems?.original_title}
+                </Text>
+                <View style={styles.genres}>
+                    {movieItems?.genres?.map((item, index) => <Text key={index} style={styles.titleGenres}>
+                        {item?.name}
+                    </Text>)}
+                </View>
 
-        <SafeAreaView style={styles.main}>
-            <HeaderDetail onPresseds={() => { movies.navigation.goBack() }}>
-            </HeaderDetail>
-            {isLoading ?
-                <ScrollView>
-                    <View style={styles.container}>
-                        <InformationDetail movieItems={movieItem} onPresseds={(value) => {
-                            // console.warn(value);
-                            if (value == "paused") {
-                                setPlayVideo(false)
-                            } else if (value == "playing") {
-                                setPlayVideo(true)
-                            }
+                <Text style={styles.titleDescription}>
+                    {isReadMoreShown ? movieItems?.overview : movieItems?.overview?.substr(0, 150)}
+                </Text>
+                <TouchableOpacity onPress={onPressed}>
+                    <Text style={styles.showMore}>
+                        {isReadMoreShown ? "Hide" : "Show more"}
+                    </Text>
+                </TouchableOpacity>
+            </View>
+            <View style={styles.componentReview}>
+                <View style={styles.componentBg}>
+                    <Text style={styles.titleReview}>
+                        {1999}
+                    </Text>
+                </View>
+                <View style={styles.componentBg}>
+                    <Image source={Images.start} style={styles.icon} />
+                    <Text style={styles.titleReview}>
+                        {movieItems?.vote_average + "/ 10"}
+                    </Text>
+                </View>
+                <View style={styles.componentBg}>
+                    <Image source={Images.oclock} style={styles.icon} />
+                    <Text style={styles.titleReview}>
+                        {movieItems?.runtime + "min"}
+                    </Text>
+                </View>
+            </View>
+            {video == "" ? <View>
 
-                        }} play={play} video={video} />
+            </View> : <Text style={styles.textVideo}>
+                Video
+            </Text>}
 
-                    </View>
-                    <SimilarItem moviesSimilar={moviesSimilar} />
-                </ScrollView>
-                : <View style={styles.loading}><ActivityIndicator /></View>}
-        </SafeAreaView>
+            {video == "" ? <View></View> : <YouTubePlay
+                height={sizeHeight(200)}
+                play={play}
+                videoId={video}
+                onChangeState={onPresseds}
+            />}
+        </View>
     )
-};
-
-export default MovieDetail;
-
+}
 const styles = StyleSheet.create({
     main: {
         flex: 1,
@@ -153,7 +147,7 @@ const styles = StyleSheet.create({
     icon: {
         width: sizeHeight(14),
         height: sizeHeight(14),
-        marginRight: 4
+        marginLeft: 10
 
     },
     showMore: {
@@ -244,3 +238,5 @@ const styles = StyleSheet.create({
         backgroundColor: Colors.white
     }
 });
+
+export default InformationDetail;

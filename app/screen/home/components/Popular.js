@@ -2,15 +2,9 @@ import { View, Text, TouchableOpacity, StyleSheet, Image } from 'react-native'
 import React from 'react'
 import { Styles, Colors, sizeHeight, sizeWidth, sizeScale, Images } from "@/constants"
 import { FlatList, ScrollView } from 'react-native-gesture-handler';
+import { useNavigation } from '@react-navigation/native';
 const Popular = ({ movies }) => {
-    console.log(movies);
-    const image = [
-        "https://image.tmdb.org/t/p/original/tmU7GeKVybMWFButWEGl2M4GeiP.jpg",
-        "https://image.tmdb.org/t/p/original/wPU78OPN4BYEgWYdXyg0phMee64.jpg",
-        "https://image.tmdb.org/t/p/original/kGzFbGhp99zva6oZODW5atUtnqi.jpg",
-        "https://image.tmdb.org/t/p/original/zb6fM1CX41D9rF9hdgclu0peUmy.jpg",
-        "https://image.tmdb.org/t/p/original/vI3aUGTuRRdM7J78KIdW98LdxE5.jpg",
-    ];
+    const navigation = useNavigation();
     onChanged = (nativeEvent) => {
 
     }
@@ -28,7 +22,7 @@ const Popular = ({ movies }) => {
             </View>
             <View>
                 <FlatList data={movies}
-                    renderItem={({ item, index }) => <TouchableOpacity key={index}>
+                    renderItem={({ item, index }) => <TouchableOpacity key={index} onPress={() => navigation.navigate('DetailMovie', { item: item })}>
                         <Image key={index} resizeMode='cover' style={styles.image} source={{ uri: "https://image.tmdb.org/t/p/original" + item?.backdrop_path }} />
                         <View style={styles.componentOpacity}>
                         </View>
@@ -38,13 +32,13 @@ const Popular = ({ movies }) => {
                         <View style={styles.componentOverlay}>
                             <View>
                                 <Text style={styles.nameMovie}>
-                                    hihih
+                                    {item?.original_title}
                                 </Text>
 
                                 <View style={styles.componentRate}>
                                     <Image source={Images.start} style={styles.icon} />
-                                    <Text style={styles.titleRate}>Avatar : Water </Text>
-                                    <Text style={styles.titleView}>50M View </Text>
+                                    <Text style={styles.titleRate}>{item?.vote_average} </Text>
+                                    {/* <Text style={styles.titleView}>50M View </Text> */}
 
                                 </View>
                             </View>
@@ -90,7 +84,7 @@ const styles = StyleSheet.create({
     image: {
         marginTop: 20,
         borderRadius: sizeScale(20),
-        height: sizeScale(180),
+        height: sizeScale(220),
         width: sizeScale(200),
         paddingVertical: 20,
         paddingHorizontal: 20,
@@ -111,13 +105,14 @@ const styles = StyleSheet.create({
         height: 60,
         borderBottomEndRadius: sizeScale(20),
         borderBottomStartRadius: sizeScale(20),
-        backgroundColor: Colors.white,
-        opacity: 0.2,
-        height: sizeScale(60),
+        backgroundColor: Colors.black,
+        opacity: 0.5,
+        height: sizeScale(80),
         width: sizeScale(200),
 
     },
     nameMovie: {
+        width: sizeWidth(180),
         color: Colors.white,
         fontSize: 20,
         fontWeight: 'bold'
@@ -140,7 +135,7 @@ const styles = StyleSheet.create({
     },
     componentPlay: {
         right: 40,
-        bottom: 50,
+        bottom: 80,
         position: 'absolute',
         width: sizeHeight(24),
         height: sizeHeight(24),

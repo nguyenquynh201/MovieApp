@@ -23,6 +23,8 @@ const styles = StyleSheet.create({
     header: {
         flexDirection: 'row',
         justifyContent: 'space-between',
+        color: Colors.primary,
+        paddingHorizontal: 20
 
     },
     componentIcon: {

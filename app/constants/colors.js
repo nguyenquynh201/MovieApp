@@ -5,7 +5,7 @@ export const Colors = {
     primary: '#070D23',
     activeDefaultIcon: '#E5E5E5',
     colorBgIcon: '#222C4F',
-    black: '#00000',
+    black: '#000000',
     bgButton: '#724CF9',
     bgTextBox: '#212B4D',
     colorTextBox: '#4C5778'

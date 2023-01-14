@@ -24,7 +24,7 @@ const LoginScreen = ({ navigation: { navigate } }) => {
                 AsyncStorage.setItem("signIn", JSON.stringify(data.data.data.signIn));
                 console.warn("Login success");
 
-                navigate("Home");
+                navigate("MainScreen");
                 setIsLoading(true);
             }
         }).catch((error) => {
