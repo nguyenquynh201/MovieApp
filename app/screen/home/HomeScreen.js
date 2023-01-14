@@ -1,5 +1,5 @@
 /* eslint-disable prettier/prettier */
-import { Text, View, StyleSheet, Image, Dimensions, TouchableOpacity, ActivityIndicator } from 'react-native';
+import { Text, View, StyleSheet, Image, Dimensions, TouchableOpacity, ActivityIndicator, RefreshControl } from 'react-native';
 import React, { Component, useEffect, useState } from 'react';
 import { initialWindowMetrics, SafeAreaView } from 'react-native-safe-area-context';
 import { Styles, Colors, sizeHeight, sizeWidth, sizeScale, Images, Config } from "@/constants"
@@ -18,6 +18,7 @@ const HomeScreen = () => {
   const [moviePopulars, setMoviesPopular] = useState([]);
   const [movieUpcomings, setMoviesUpcoming] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
+  // const [isRefresh, setIsRefresh] = useState(false);
   useEffect(() => {
     fetchApiTopRated();
     fetchApiPopular();
@@ -51,6 +52,13 @@ const HomeScreen = () => {
       console.log(error);
     })
   }
+  // const onRefresh = () => {
+  //   setIsRefresh(true)
+  //   fetchApiTopRated();
+  //   fetchApiPopular();
+  //   fetchApiUpComming();
+  //   setIsRefresh(false);
+  // }
   return (
     <SafeAreaView style={styles.container} >
       <View style={styles.header}>
@@ -62,7 +70,12 @@ const HomeScreen = () => {
         </TouchableOpacity>
       </View>
 
-      {isLoading ? <ScrollView >
+      {isLoading ? <ScrollView
+      //  refreshControl={
+      //   <RefreshControl refreshing={isRefresh} onRefresh={() => onRefresh()}
+      //    />
+      // }
+      >
 
         <SliderMovieTopRated movies={movies}></SliderMovieTopRated>
         <Popular movies={moviePopulars} ></Popular>

@@ -2,16 +2,17 @@ import { StyleSheet, Text, View, Image, Dimensions, TouchableOpacity, ActivityIn
 import React, { useState, useEffect } from 'react'
 import { ScrollView, FlatList } from 'react-native-gesture-handler';
 import { Colors, sizeHeight, Images, sizeScale, sizeWidth } from '@/constants';
-
+import { useNavigation } from '@react-navigation/native';
 
 const SimilarItem = ({ moviesSimilar }) => {
+    const navigation = useNavigation();
     return (
         <View style={styles.moviesSimilarItem}>
             <Text style={styles.moviesSimilar}>
                 Similar movie
             </Text>
             <FlatList data={moviesSimilar}
-                renderItem={({ item, index }) => <TouchableOpacity key={index}>
+                renderItem={({ item, index }) => <TouchableOpacity key={index} onPress={() => navigation.replace('DetailMovie', { item: item })}>
                     <Image key={index} resizeMode='cover' style={styles.image} source={{ uri: "https://image.tmdb.org/t/p/original" + item?.backdrop_path }} />
                     <View style={styles.componentOpacity}>
                     </View>
@@ -39,11 +40,13 @@ export default SimilarItem;
 
 const styles = StyleSheet.create({
     moviesSimilarItem: {
-        marginBottom: 20
+        marginBottom: 20,
+        paddingHorizontal: 20
     },
     moviesSimilar: {
-        color: Colors.title,
-        fontSize: 24, fontWeight: '500'
+        color: Colors.white,
+        fontSize: 24,
+        fontWeight: '500'
     },
     listPopular: {
         height: 100

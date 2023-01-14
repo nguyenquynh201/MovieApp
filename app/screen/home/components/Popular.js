@@ -2,15 +2,9 @@ import { View, Text, TouchableOpacity, StyleSheet, Image } from 'react-native'
 import React from 'react'
 import { Styles, Colors, sizeHeight, sizeWidth, sizeScale, Images } from "@/constants"
 import { FlatList, ScrollView } from 'react-native-gesture-handler';
+import { useNavigation } from '@react-navigation/native';
 const Popular = ({ movies }) => {
-    console.log(movies);
-    const image = [
-        "https://image.tmdb.org/t/p/original/tmU7GeKVybMWFButWEGl2M4GeiP.jpg",
-        "https://image.tmdb.org/t/p/original/wPU78OPN4BYEgWYdXyg0phMee64.jpg",
-        "https://image.tmdb.org/t/p/original/kGzFbGhp99zva6oZODW5atUtnqi.jpg",
-        "https://image.tmdb.org/t/p/original/zb6fM1CX41D9rF9hdgclu0peUmy.jpg",
-        "https://image.tmdb.org/t/p/original/vI3aUGTuRRdM7J78KIdW98LdxE5.jpg",
-    ];
+    const navigation = useNavigation();
     onChanged = (nativeEvent) => {
 
     }
@@ -28,7 +22,7 @@ const Popular = ({ movies }) => {
             </View>
             <View>
                 <FlatList data={movies}
-                    renderItem={({ item, index }) => <TouchableOpacity key={index}>
+                    renderItem={({ item, index }) => <TouchableOpacity key={index} onPress={() => navigation.navigate('DetailMovie', { item: item })}>
                         <Image key={index} resizeMode='cover' style={styles.image} source={{ uri: "https://image.tmdb.org/t/p/original" + item?.backdrop_path }} />
                         <View style={styles.componentOpacity}>
                         </View>
@@ -43,8 +37,8 @@ const Popular = ({ movies }) => {
 
                                 <View style={styles.componentRate}>
                                     <Image source={Images.start} style={styles.icon} />
-                                    <Text style={styles.titleRate}>Avatar : Water </Text>
-                                    <Text style={styles.titleView}>50M View </Text>
+                                    <Text style={styles.titleRate}>{item?.vote_average} </Text>
+                                    {/* <Text style={styles.titleView}>50M View </Text> */}
 
                                 </View>
                             </View>

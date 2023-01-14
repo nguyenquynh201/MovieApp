@@ -147,7 +147,7 @@ const styles = StyleSheet.create({
     icon: {
         width: sizeHeight(14),
         height: sizeHeight(14),
-        marginRight: 4
+        marginLeft: 10
 
     },
     showMore: {
