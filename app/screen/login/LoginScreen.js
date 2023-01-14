@@ -19,10 +19,12 @@ const LoginScreen = ({ navigation: { navigate } }) => {
         AuthenticationApi.login({ username, password }).then((data) => {
             console.log(data)
             if (data.status === 200) {
-                console.log(data)
-                AsyncStorage.setItem("user", data.data.signIn)
                 console.warn("Login success");
-                navigate("Home")
+
+                AsyncStorage.setItem("signIn", JSON.stringify(data.data.data.signIn));
+                console.warn("Login success");
+
+                navigate("Home");
                 setIsLoading(true);
             }
         }).catch((error) => {
@@ -31,8 +33,10 @@ const LoginScreen = ({ navigation: { navigate } }) => {
 
         })
     }
-    const onForgotPsdPress = () => {
-        console.warn("Forgot ?");
+    const onForgotPsdPress = async () => {
+        // const signIn = await AsyncStorage.getItem('signIn');
+        // const token = JSON.parse(signIn).authToken;
+        // AuthenticationApi.isValidToken(token)
     }
     const onSignInPressGg = () => {
         console.warn("Sign Google");
