@@ -1,35 +1,45 @@
-import { View, Text, Image, StyleSheet, useWindowDimensions, ScrollView, ActivityIndicator, Dimensions } from 'react-native';
+import { View, Text, Image, StyleSheet, useWindowDimensions, Dimensions, ScrollView, ActivityIndicator } from 'react-native';
 import React, { useState } from 'react';
-import Logo from '@/assets/logo.png';
+import Logo from '../../assets/logo.png';
 import CustomInput from '../../components/CustomInput';
 import CustomButton from '../../components/CustomButton';
 import { Colors } from '@/constants';
 import AuthenticationApi from '@/controllers/api/Authentication';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import { NavigationActions } from 'react-navigation';
 
-
-const LoginScreen = ({ navigation: { navigate } }) => {
-    const [username, setUsername] = useState('');
+const SignUpScreen = ({ navigation: { navigate } }) => {
+    const [phone, setPhone] = useState('');
+    const [fullName, setFullName] = useState('');
+    const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const [repeatPassword, setRepeatPassword] = useState('');
     const [isLoading, setIsLoading] = useState(true);
 
-    const onSignInPress = () => {
+    const onSignUpPress = () => {
         setIsLoading(false)
-        AuthenticationApi.login({ username, password }).then((data) => {
+        if (repeatPassword !== password) {
+            console.warn("Password don't match");
+            return;
+        }
+        AuthenticationApi.register({ fullName, email, phone, password }).then((data) => {
             console.log(data)
             if (data.status === 200) {
-                console.log(data)
-                AsyncStorage.setItem("user", data.data.signIn)
-                console.warn("Login success");
-                navigate("Home")
+                navigate("LoginScreen")
                 setIsLoading(true);
+                console.log("Register user success");
+
             }
         }).catch((error) => {
-            console.log(error);
+            console.error("Register user can not complete");
+            console.error(error);
             setIsLoading(true)
 
-        })
+        });
+
+    }
+
+    const onSignInPress = () => {
+        navigate("LoginScreen")
     }
     const onForgotPsdPress = () => {
         console.warn("Forgot ?");
@@ -43,27 +53,28 @@ const LoginScreen = ({ navigation: { navigate } }) => {
     const onSignInPressIg = () => {
         console.warn("Instagram");
     }
-    const onSignUpPress = () => {
-        navigate('SignUp')
-    }
+
     const { height } = useWindowDimensions();
     return (
         <ScrollView>
             {isLoading ? <View style={styles.root}>
+
                 <Image source={Logo} style={[styles.logo, { height: height * 0.3 }]} resizeMode="contain" />
+                <CustomInput placeholder="FullName" value={fullName} setValue={setFullName} />
+                <CustomInput placeholder="Email" value={email} setValue={setEmail} />
+                <CustomInput placeholder="Phone" value={phone} setValue={setPhone} />
+                <CustomInput placeholder="Password" value={password} setValue={setPassword} secureTextEntry />
+                <CustomInput placeholder="Repeat Password" value={repeatPassword} setValue={setRepeatPassword} secureTextEntry />
 
-                <CustomInput placeholder="Username" value={username} setValue={setUsername} />
-                <CustomInput placeholder="Password" value={password} setValue={setPassword} secureTextEntry={true} />
-                <CustomButton text="Sign in" onPress={onSignInPress} bgColor={Colors.bgButton} />
-
+                <CustomButton text="Sign up" onPress={onSignUpPress} bgColor={Colors.bgButton} />
                 <CustomButton text="Forgot password" onPress={onForgotPsdPress} type="white" />
 
                 <CustomButton text="Sign in with Facebook" onPress={onSignInPressFb} bgColor="#E7EAF4" fgColor="#4765A9" />
                 <CustomButton text="Sign in with Google" onPress={onSignInPressGg} bgColor="#FAE9EA" fgColor="#DD4D44" />
                 <CustomButton text="Sign in with Instagram" onPress={onSignInPressIg} bgColor="#e3e3e3" fgColor="#363636" />
-
-                <CustomButton text="Don't have an account" onPress={onSignUpPress} type="TETIARY" />
-            </View> : <View style={styles.loading}><ActivityIndicator /></View>}
+                <CustomButton text="Sign in" onPress={onSignInPress} type="TETIARY" />
+            </View>
+                : <View style={styles.loading}><ActivityIndicator /></View>}
         </ScrollView>
     );
 };
@@ -86,4 +97,4 @@ const styles = StyleSheet.create({
     }
 });
 
-export default LoginScreen;
+export default SignUpScreen;
