@@ -5,6 +5,9 @@ import HomeScreen from '@/screen/home/HomeScreen';
 import CategoryScreen from '@/screen/category/CategoryScreen';
 import ReviewOfUserScreen from '@/screen/review/ReviewOfUserScreen';
 import LoginScreen from '@/screen/login/LoginScreen';
+import MovieDetail from '@/screen/detail/home_detail/MovieDetail';
+import ResultList from '@/screen/Result/ResultList';
+import SignUpScreen from '@/screen/signup/SignUpScreen';
 
 const Stack = createStackNavigator();
 
@@ -13,6 +16,18 @@ function RootStack() {
         <Stack.Navigator>
             <Stack.Screen name="LoginScreen" component={LoginScreen} options={
                 { headerShown: false }} />
+            <Stack.Screen name="SignUp" component={SignUpScreen} options={
+                { headerShown: false }} />
+            <Stack.Screen name="Home" component={HomeScreen} options={
+                { headerShown: false }} />
+            <Stack.Screen name="DetailMovie" component={MovieDetail} options={
+                { headerShown: false }} />
+            <Stack.Screen name="Category" component={CategoryScreen} options={
+                { headerShown: true }} />
+            <Stack.Screen name="Review" component={ReviewOfUserScreen} options={
+                { headerShown: true }} />
+            <Stack.Screen name="ResultList" component={ResultList} options={
+                { headerShown: true }} />
         </Stack.Navigator>
 
     );
