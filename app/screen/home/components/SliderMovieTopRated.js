@@ -55,7 +55,7 @@ const SliderMovieTopRated = ({ movies }) => {
                         return <TouchableOpacity style={{ width: SIZE }} key={index} onPress={() => navigation.navigate('DetailMovie', { item: item })}>
 
                             <Animated.View style={[styles.imageContainer, style]}>
-                                <Image key={index} resizeMode='cover' style={styles.image} source={{ uri: "https://image.tmdb.org/t/p/original" + item?.backdrop_path }} />
+                                <Image key={item?.id?.toString()} resizeMode='cover' style={styles.image} source={{ uri: "https://image.tmdb.org/t/p/original" + item?.backdrop_path }} />
 
                             </Animated.View>
 
