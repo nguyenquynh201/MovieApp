@@ -8,4 +8,5 @@ export default {
     icon_home: require("../assets/images/home.png"),
     icon_result: require("../assets/images/business.png"),
     icon_profile: require("../assets/images/user.png"),
+    profile: require("../assets/images/man.png"),
 };
