@@ -6,13 +6,14 @@ import { useState, useEffect } from 'react';
 import { FlatList } from 'react-native-gesture-handler';
 import Moment from 'moment';
 
-const ReviewOfUserScreen = () => {
-    // const movie = movies.route.params.item;
+const ReviewOfUserScreen = (router) => {
+    const id = router.route.params.id;
+
     const [reviewOfUser, setReviewOfUser] = useState([]);
     const [isLoading, setIsLoading] = useState(false);
 
     useEffect(() => {
-        MovieTopRateApi.getReviewByMovieId('297762').then((data) => {
+        MovieTopRateApi.getReviewByMovieId(id).then((data) => {
             // console.log(data['results']);
             setReviewOfUser(data['results']);
             setIsLoading(true);

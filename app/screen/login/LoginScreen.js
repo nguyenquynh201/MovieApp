@@ -1,4 +1,4 @@
-import { View, Text, Image, StyleSheet, useWindowDimensions, ScrollView, ActivityIndicator, Dimensions } from 'react-native';
+import { View, Image, StyleSheet, useWindowDimensions, ScrollView, ActivityIndicator, Dimensions } from 'react-native';
 import React, { useState } from 'react';
 import Logo from '@/assets/logo.png';
 import CustomInput from '../../components/CustomInput';
@@ -6,7 +6,6 @@ import CustomButton from '../../components/CustomButton';
 import { Colors } from '@/constants';
 import AuthenticationApi from '@/controllers/api/Authentication';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { NavigationActions } from 'react-navigation';
 
 
 const LoginScreen = ({ navigation: { navigate } }) => {

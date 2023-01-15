@@ -5,7 +5,6 @@ import CustomInput from '../../components/CustomInput';
 import CustomButton from '../../components/CustomButton';
 import { Colors } from '@/constants';
 import AuthenticationApi from '@/controllers/api/Authentication';
-import { NavigationActions } from 'react-navigation';
 
 const SignUpScreen = ({ navigation: { navigate } }) => {
     const [phone, setPhone] = useState('');
@@ -26,7 +25,7 @@ const SignUpScreen = ({ navigation: { navigate } }) => {
             if (data.status === 200) {
                 navigate("LoginScreen")
                 setIsLoading(true);
-                console.log("Register user success");
+                console.warn("Register user success");
 
             }
         }).catch((error) => {
