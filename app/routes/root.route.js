@@ -5,9 +5,11 @@ import HomeScreen from '@/screen/home/HomeScreen';
 import CategoryScreen from '@/screen/category/CategoryScreen';
 import ReviewOfUserScreen from '@/screen/review/ReviewOfUserScreen';
 import LoginScreen from '@/screen/login/LoginScreen';
-import ResultList from '@/screen/Result/ResultList';
-import SignUpScreen from '@/screen/signup/SignUpScreen';
+import ResultScreen from '@/screen/signup/SignUpScreen';
 import MainScreen from '@/screen/MainScreen';
+import AllPopulor from '@/screen/SeeALL/AllPopulor';
+import AllToprate from '@/screen/SeeALL/AllToprate';
+import AllUpComing from '@/screen/SeeALL/AllUpComing';
 
 
 const Stack = createStackNavigator();
@@ -29,7 +31,13 @@ function RootStack() {
                 { headerShown: false }} />
             <Stack.Screen name="Review" component={ReviewOfUserScreen} options={
                 { headerShown: false }} />
-            <Stack.Screen name="ResultList" component={ResultList} options={
+            <Stack.Screen name="ResultScreen" component={ResultScreen} options={
+                { headerShown: false }} />
+            <Stack.Screen name="AllPopulor" component={AllPopulor} options={
+                { headerShown: false }} />
+            <Stack.Screen name="AllToprate" component={AllToprate} options={
+                { headerShown: false }} />
+            <Stack.Screen name="AllUpComing" component={AllUpComing} options={
                 { headerShown: false }} />
         </Stack.Navigator>
 

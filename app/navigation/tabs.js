@@ -1,7 +1,6 @@
 import HomeScreen from "@/screen/home/HomeScreen";
 import ProfileScreen from "@/screen/profile/ProfileScreen";
-import ReviewOfUserScreen from "@/screen/review/ReviewOfUserScreen";
-import ResultList from "@/screen/Result/ResultList";
+import ResultScreen from "@/screen/Result/ResultScreen";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { sizeHeight, sizeScale, sizeWidth, Colors, Images } from '@/constants';
 import { StyleSheet, Image, View, Text } from 'react-native'
@@ -36,7 +35,7 @@ const Tabs = () => {
                         </View>
                     }
                 }} />
-            <Tab.Screen name="Result" component={ResultList} options={
+            <Tab.Screen name="Result" component={ResultScreen} options={
                 {
                     headerShown: false, tabBarIcon: ({ focused }) => {
                         return <View style={styles.componentText} >
