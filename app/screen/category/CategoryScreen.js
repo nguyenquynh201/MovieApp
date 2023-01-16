@@ -5,6 +5,7 @@ import { ScrollView } from 'react-native-gesture-handler';
 import MovieTopRateApi from '@/controllers/api/MovieTopRateApi';
 import { useState, useEffect } from 'react';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import HeaderCategory from './component/HeaderCategory';
 
 const CategoryScreen = () => {
     const [categories, setCategories] = useState([]);
@@ -23,9 +24,8 @@ const CategoryScreen = () => {
 
     return (
         <View style={styles.root}>
-            <Text style={styles.headTitle}>Category</Text>
-
-            <View style={styles.line} />
+            <HeaderCategory>
+            </HeaderCategory>
 
             {isLoading ? <View >
                 <SafeAreaView >
@@ -45,11 +45,7 @@ const styles = StyleSheet.create({
         height: "100%",
         backgroundColor: Colors.primary,
     },
-    headTitle: {
-        color: "#ffffffff",
-        padding: 20,
-        fontSize: 28
-    },
+
     line: {
         marginHorizontal: 24,
         marginBottom: 10,

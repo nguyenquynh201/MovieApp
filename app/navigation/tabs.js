@@ -5,6 +5,7 @@ import ResultList from "@/screen/Result/ResultList";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { sizeHeight, sizeScale, sizeWidth, Colors, Images } from '@/constants';
 import { StyleSheet, Image, View, Text } from 'react-native'
+import CategoryScreen from "@/screen/category/CategoryScreen";
 const Tab = createBottomTabNavigator();
 const Tabs = () => {
     return (
@@ -45,6 +46,19 @@ const Tabs = () => {
                             }} />
                             <Text style={{ color: focused ? Colors.primary : Colors.activeDefaultIcon }}>
                                 Search
+                            </Text>
+                        </View>
+                    }
+                }} />
+            <Tab.Screen name="Category" component={CategoryScreen} options={
+                {
+                    headerShown: false, tabBarIcon: ({ focused }) => {
+                        return <View style={styles.componentText} >
+                            <Image source={Images.category} resizeMode='contain' style={{
+                                width: 25, height: 25, tintColor: focused ? Colors.primary : Colors.activeDefaultIcon
+                            }} />
+                            <Text style={{ color: focused ? Colors.primary : Colors.activeDefaultIcon }}>
+                                Category
                             </Text>
                         </View>
                     }
