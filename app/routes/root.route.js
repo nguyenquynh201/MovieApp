@@ -5,7 +5,7 @@ import HomeScreen from '@/screen/home/HomeScreen';
 import CategoryScreen from '@/screen/category/CategoryScreen';
 import ReviewOfUserScreen from '@/screen/review/ReviewOfUserScreen';
 import LoginScreen from '@/screen/login/LoginScreen';
-import ResultList from '@/screen/Result/ResultList';
+import ResultList from '@/screen/Result/ResultScreen';
 import SignUpScreen from '@/screen/signup/SignUpScreen';
 import MainScreen from '@/screen/MainScreen';
 
@@ -29,7 +29,7 @@ function RootStack() {
                 { headerShown: true }} />
             <Stack.Screen name="Review" component={ReviewOfUserScreen} options={
                 { headerShown: true }} />
-            <Stack.Screen name="ResultList" component={ResultList} options={
+            <Stack.Screen name="ResultScreen" component={ResultScreen} options={
                 { headerShown: true }} />
         </Stack.Navigator>
 
