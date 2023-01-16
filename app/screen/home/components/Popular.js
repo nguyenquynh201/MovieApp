@@ -14,7 +14,7 @@ const Popular = ({ movies }) => {
                 <Text style={styles.title}>
                     Popular
                 </Text>
-                <TouchableOpacity style={styles.actionSeeAll}>
+                <TouchableOpacity style={styles.actionSeeAll} onPress={() => navigation.navigate('AllPopulor')}>
                     <Text style={styles.textSeeAll}>
                         See all
                     </Text>
