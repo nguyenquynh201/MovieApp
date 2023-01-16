@@ -1,6 +1,6 @@
-import { FlatList, StyleSheet, Text, View,TouchableOpacity, TextInput } from 'react-native';
-import React from 'react';
-import MoviesItem from './MoviesItem';
+import { FlatList,Image, StyleSheet, Text, View,TouchableOpacity, TextInput } from 'react-native';
+import React, { useState,useEffect } from 'react';
+import MoviesItem from './MoviesItem'
 import Entypo from 'react-native-vector-icons/Entypo';
 const movies=[
     {
@@ -70,8 +70,37 @@ const movies=[
         mota: 'When Cpt. Artemis and her loyal soldiers are transported to a new world, they engage in a desperate battle for survival against enormous enemies with incredible powers. Feature film based on the video game by Capcom.' 
     },
 ]
-
 const ResultList = () => {
+   
+    const [masterData, setmasterData]=useState([]);
+    const [search,setsearch]=useState([''])
+    
+    
+
+const ItemView=({item})=>{
+    return(
+        <TouchableOpacity style={styles.rootlistView}>
+            <Image source={{uri: movies?.avatar}} style={styles.avatarImg} />
+            <View style={styles.contentView}>
+                <Text style={style=styles.nametext}>{movies?.name}</Text>
+                <Text style={style=styles.theloaitext}>{movies?.theloai}</Text>
+                <View style={{flexDirection: 'row'}}>
+                    <Entypo name='star' style={{color: '#f2c94c', fontSize:20}}></Entypo>
+                    <Text style={styles.contentText}>{movies?.danhgia}</Text>
+                    <Entypo name='controller-record' style={styles.cham}></Entypo>
+                    <Entypo name='clock' style={{color: '#69718b', fontSize:15,marginLeft:5}}></Entypo>
+                    <Text style={styles.contentText}>{movies?.thoiluong}</Text>
+                    <Entypo name='controller-record' style={styles.cham}></Entypo>
+                    <Text style={styles.contentText}>{movies?.namsx}</Text>
+                    <Entypo name='controller-record' style={styles.cham}></Entypo>
+                    <Text style={styles.contentText}>{movies?.tuoi}</Text>
+                </View>
+                <Text style={style={color: '#8b93ad'}}>{movies?.mota}</Text>
+            </View>
+        </TouchableOpacity>
+    )
+}
+
   return (
     
     <View style={styles.rootView}>
@@ -84,20 +113,22 @@ const ResultList = () => {
                     <View><Text style={{color:'white',marginHorizontal:110,fontSize:20}}>Result</Text>
                     
                     </View>
-                    <TouchableOpacity style={{height:60,
-                    width:60,borderRadius:20,
-                    backgroundColor:'#222c4f'}}><Entypo name='bar-graph' style={{color: 'white', fontSize:40,marginHorizontal:10,marginVertical:10}}></Entypo></TouchableOpacity>
+                    
             
         </View>
         <View style={styles.searchview}>
         <Entypo name='magnifying-glass' style={styles.searchicon}></Entypo>
-                <TextInput style={styles.searchtext}></TextInput>
+                <TextInput style={styles.searchtext} 
+                value={search}
+                placeholder="search here"
+                onChangeText={(text) => searchFilter}
+                ></TextInput>
             </View>
        
         <View>
             <FlatList 
                 data={movies}
-                renderItem={({item,index})=> <MoviesItem movie={item}/>}
+                renderItem={ItemView}
                 keyExtractor={(item,index)=>index.toString()}
             />
         </View>
@@ -121,5 +152,36 @@ const styles = StyleSheet.create({
         placeholder:'search',
          backgroundColor:'#222c4f',
         borderRadius:20,flex:1},
-        searchicon:{color:'white',fontSize:30,position:'absolute',top:10,left:10}
+        searchicon:{color:'white',fontSize:30,position:'absolute',top:10,left:10},
+        avatarImg:{
+            width:100,
+            height:150,
+            backgroundColor:'gray',
+            borderRadius:20
+        },
+        rootlistView:{
+            height: 170,
+            backgroundColor: '#070d23',
+            marginLeft:20,
+            marginBottom:10,
+            flexDirection:'row'
+        },
+        contentView:{
+            backgroundColor:'#070d23',
+            flex:1,
+            paddingTop:5,
+            paddingLeft:5
+        },
+        cham:{color: '#69718b',
+         fontSize:10,
+         alignSelf:'center',
+         marginLeft:10
+        },
+        contentText:{color:'#69718b',
+        marginLeft:5
+        },
+        nametext:{color: 'white',
+        fontSize:20
+        },
+        theloaitext:{color: '#6a718a',marginTop:2}
 })
