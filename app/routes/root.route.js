@@ -8,8 +8,7 @@ import LoginScreen from '@/screen/login/LoginScreen';
 import ResultList from '@/screen/Result/ResultList';
 import SignUpScreen from '@/screen/signup/SignUpScreen';
 import MainScreen from '@/screen/MainScreen';
-
-
+import Upcoming from '@/screen/upcoming/UpComing';
 const Stack = createStackNavigator();
 
 function RootStack() {
@@ -30,6 +29,8 @@ function RootStack() {
             <Stack.Screen name="Review" component={ReviewOfUserScreen} options={
                 { headerShown: true }} />
             <Stack.Screen name="ResultList" component={ResultList} options={
+                { headerShown: true }} />
+            <Stack.Screen name="upcoming" component={Upcoming} options={
                 { headerShown: true }} />
         </Stack.Navigator>
 
