@@ -7,8 +7,8 @@ import { FlatList } from 'react-native-gesture-handler';
 import Moment from 'moment';
 
 const ReviewOfUserScreen = (router) => {
-    const id = router.route.params.id;
-
+    const id = router.route.params.item.id;
+    // console.log(id);
     const [reviewOfUser, setReviewOfUser] = useState([]);
     const [isLoading, setIsLoading] = useState(false);
 
