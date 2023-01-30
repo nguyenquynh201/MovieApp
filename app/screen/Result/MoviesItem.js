@@ -17,8 +17,7 @@ const MoviesItem = ({movie})=> {
                     <Text style={styles.contentText}>{movie?.thoiluong}</Text>
                     <Entypo name='controller-record' style={styles.cham}></Entypo>
                     <Text style={styles.contentText}>{movie?.namsx}</Text>
-                    <Entypo name='controller-record' style={styles.cham}></Entypo>
-                    <Text style={styles.contentText}>{movie?.tuoi}</Text>
+                    
                 </View>
                 <Text style={style={color: '#8b93ad'}}>{movie?.mota}</Text>
             </View>
