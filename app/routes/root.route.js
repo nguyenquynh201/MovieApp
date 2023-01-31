@@ -8,7 +8,9 @@ import LoginScreen from '@/screen/login/LoginScreen';
 import ResultList from '@/screen/Result/ResultList';
 import SignUpScreen from '@/screen/signup/SignUpScreen';
 import MainScreen from '@/screen/MainScreen';
-import Upcoming from '@/screen/upcoming/UpComing';
+import Upcoming from '@/screen/upcoming/Upcoming';
+
+
 const Stack = createStackNavigator();
 
 function RootStack() {
@@ -30,7 +32,7 @@ function RootStack() {
                 { headerShown: true }} />
             <Stack.Screen name="ResultList" component={ResultList} options={
                 { headerShown: true }} />
-            <Stack.Screen name="upcoming" component={Upcoming} options={
+            <Stack.Screen name="Upcoming" component={Upcoming} options={
                 { headerShown: true }} />
         </Stack.Navigator>
 
