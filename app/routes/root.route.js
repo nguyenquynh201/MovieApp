@@ -32,13 +32,12 @@ function RootStack() {
                 { headerShown: false }} />
             <Stack.Screen name="Review" component={ReviewOfUserScreen} options={
                 { headerShown: true }} />
-            <Stack.Screen name="ResultList" component={ResultList} options={
-                { headerShown: true }} />
-            <Stack.Screen name="Upcoming" component={Upcoming} options={
-                { headerShown: true }} />
-                { headerShown: false }} />
             <Stack.Screen name="ResultScreen" component={ResultScreen} options={
                 { headerShown: false }} />
+            <Stack.Screen name="Upcoming" component={Upcoming} options={
+                { headerShown: true }} />
+            {/* <Stack.Screen name="ResultScreen" component={ResultScreen} options={
+                { headerShown: false }} /> */}
             <Stack.Screen name="AllPopulor" component={AllPopulor} options={
                 { headerShown: false }} />
             <Stack.Screen name="AllToprate" component={AllToprate} options={

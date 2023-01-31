@@ -12,7 +12,7 @@ export default class AuthenticationApi {
                 withCredentials: true,
             });
 
-            const result = axiosPost('/authenticate', {
+            const result = axiosPost('/app/auth/sign-in', {
                 method: 'POST',
                 headers: {
                     'content-type': 'application/json',

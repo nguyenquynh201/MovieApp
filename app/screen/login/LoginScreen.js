@@ -19,7 +19,7 @@ const LoginScreen = ({ navigation: { navigate } }) => {
             console.log(data)
             if (data.status === 200) {
 
-                AsyncStorage.setItem("token", JSON.stringify(data.data.id_token));
+                AsyncStorage.setItem("token", JSON.stringify(data.data.data.signIn));
 
                 navigate("MainScreen");
                 setIsLoading(true);
@@ -53,7 +53,7 @@ const LoginScreen = ({ navigation: { navigate } }) => {
             {isLoading ? <View style={styles.root}>
                 <Image source={Logo} style={[styles.logo, { height: height * 0.3 }]} resizeMode="contain" />
 
-                <CustomInput placeholder="Username" value={username} setValue={setUsername} />
+                <CustomInput placeholder="Email" value={username} setValue={setUsername} />
                 <CustomInput placeholder="Password" value={password} setValue={setPassword} secureTextEntry={true} />
                 <CustomButton text="Sign in" onPress={onSignInPress} bgColor={Colors.bgButton} />
 
