@@ -10,6 +10,7 @@ import MainScreen from '@/screen/MainScreen';
 import AllPopulor from '@/screen/SeeALL/AllPopulor';
 import AllToprate from '@/screen/SeeALL/AllToprate';
 import AllUpComing from '@/screen/SeeALL/AllUpComing';
+import SignUpScreen from '@/screen/signup/SignUpScreen';
 
 
 const Stack = createStackNavigator();
@@ -17,10 +18,10 @@ const Stack = createStackNavigator();
 function RootStack() {
     return (
         <Stack.Navigator>
-            {/* <Stack.Screen name="LoginScreen" component={LoginScreen} options={
+            <Stack.Screen name="LoginScreen" component={LoginScreen} options={
                 { headerShown: false }} />
             <Stack.Screen name="SignUp" component={SignUpScreen} options={
-                { headerShown: false }} /> */}
+                { headerShown: false }} />
             <Stack.Screen name="MainScreen" component={MainScreen} options={
                 { headerShown: false }} />
             <Stack.Screen name="Home" component={HomeScreen} options={
