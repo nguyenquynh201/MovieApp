@@ -28,10 +28,8 @@ const LoginScreen = ({ navigation: { navigate } }) => {
         AuthenticationApi.login({ username, password }).then((data) => {
             console.log(data)
             if (data.status === 200) {
-                console.warn("Login success");
 
-                AsyncStorage.setItem("signIn", JSON.stringify(data.data.data.signIn));
-                console.warn("Login success");
+                AsyncStorage.setItem("token", JSON.stringify(data.data.id_token));
 
                 navigate("MainScreen");
                 setIsLoading(true);

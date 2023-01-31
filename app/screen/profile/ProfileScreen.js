@@ -3,29 +3,22 @@ import React, { useEffect, useState } from 'react'
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Colors, Images, sizeHeight, sizeWidth } from '@/constants'
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import CustomButton from '@/components/CustomButton';
 
-const ProfileScreen = () => {
-    const [data, setData] = useState({});
-    useEffect(() => {
-        getDataUser();
-    });
-    getDataUser = async () => {
-        await AsyncStorage.getItem("signIn").then((datas) => {
-            if (datas) {
-                console.log(datas);
-                setData(datas);
-                console.log(data?.user);
-            }
-        });
-
+const ProfileScreen = ({ navigation: { navigate } }) => {
+    const onLogout = async () => {
+        await AsyncStorage.removeItem("token")
+        navigate('LoginScreen')
     }
+
     return (
         <SafeAreaView style={styles.containerProfile}>
             <ScrollView>
                 <View style={styles.body}>
                     <Image source={Images.profile} style={styles.imageProfile} />
-                    <Text style={styles.nameProfile}>{data.authToken}</Text>
+                    {/* <Text style={styles.nameProfile}>{data.authToken}</Text> */}
                 </View>
+                <CustomButton text="Log out" onPress={onLogout} bgColor={Colors.bgButton} />
             </ScrollView>
         </SafeAreaView>
     );
