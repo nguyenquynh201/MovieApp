@@ -1,5 +1,5 @@
 import { View, Image, StyleSheet, useWindowDimensions, ScrollView, ActivityIndicator, Dimensions } from 'react-native';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Logo from '@/assets/logo.png';
 import CustomInput from '../../components/CustomInput';
 import CustomButton from '../../components/CustomButton';
@@ -12,14 +12,24 @@ const LoginScreen = ({ navigation: { navigate } }) => {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [isLoading, setIsLoading] = useState(true);
-
+    useEffect(() => {
+        handlerLogin();
+    }, []);
+    const handlerLogin = async () => {
+        const data = await AsyncStorage.getItem("signIn");
+        if (!data) {
+            navigate("LoginScreen");
+        } else {
+            navigate("MainScreen");
+        }
+    };
     const onSignInPress = () => {
         setIsLoading(false)
         AuthenticationApi.login({ username, password }).then((data) => {
             console.log(data)
             if (data.status === 200) {
 
-                AsyncStorage.setItem("token", JSON.stringify(data.data.data.signIn));
+                AsyncStorage.setItem("signIn", JSON.stringify(data.data.data.signIn));
 
                 navigate("MainScreen");
                 setIsLoading(true);

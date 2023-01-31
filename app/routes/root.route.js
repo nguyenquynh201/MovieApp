@@ -12,7 +12,6 @@ import AllPopulor from '@/screen/SeeALL/AllPopulor';
 import AllToprate from '@/screen/SeeALL/AllToprate';
 import AllUpComing from '@/screen/SeeALL/AllUpComing';
 import SignUpScreen from '@/screen/signup/SignUpScreen';
-
 const Stack = createStackNavigator();
 
 function RootStack() {
@@ -34,7 +33,7 @@ function RootStack() {
                 { headerShown: true }} />
             <Stack.Screen name="ResultScreen" component={ResultScreen} options={
                 { headerShown: false }} />
-            <Stack.Screen name="Upcoming" component={Upcoming} options={
+            <Stack.Screen name="Upcmoming" component={Upcoming} options={
                 { headerShown: true }} />
             {/* <Stack.Screen name="ResultScreen" component={ResultScreen} options={
                 { headerShown: false }} /> */}
