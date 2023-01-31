@@ -5,11 +5,13 @@ import HomeScreen from '@/screen/home/HomeScreen';
 import CategoryScreen from '@/screen/category/CategoryScreen';
 import ReviewOfUserScreen from '@/screen/review/ReviewOfUserScreen';
 import LoginScreen from '@/screen/login/LoginScreen';
-import ResultList from '@/screen/Result/ResultList';
-import SignUpScreen from '@/screen/signup/SignUpScreen';
+import ResultScreen from '@/screen/signup/SignUpScreen';
 import MainScreen from '@/screen/MainScreen';
 import Upcoming from '@/screen/upcoming/Upcoming';
-
+import AllPopulor from '@/screen/SeeALL/AllPopulor';
+import AllToprate from '@/screen/SeeALL/AllToprate';
+import AllUpComing from '@/screen/SeeALL/AllUpComing';
+import SignUpScreen from '@/screen/signup/SignUpScreen';
 
 const Stack = createStackNavigator();
 
@@ -27,13 +29,22 @@ function RootStack() {
             <Stack.Screen name="DetailMovie" component={MovieDetail} options={
                 { headerShown: false }} />
             <Stack.Screen name="Category" component={CategoryScreen} options={
-                { headerShown: true }} />
+                { headerShown: false }} />
             <Stack.Screen name="Review" component={ReviewOfUserScreen} options={
                 { headerShown: true }} />
             <Stack.Screen name="ResultList" component={ResultList} options={
                 { headerShown: true }} />
             <Stack.Screen name="Upcoming" component={Upcoming} options={
                 { headerShown: true }} />
+                { headerShown: false }} />
+            <Stack.Screen name="ResultScreen" component={ResultScreen} options={
+                { headerShown: false }} />
+            <Stack.Screen name="AllPopulor" component={AllPopulor} options={
+                { headerShown: false }} />
+            <Stack.Screen name="AllToprate" component={AllToprate} options={
+                { headerShown: false }} />
+            <Stack.Screen name="AllUpComing" component={AllUpComing} options={
+                { headerShown: false }} />
         </Stack.Navigator>
 
     );

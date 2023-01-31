@@ -1,9 +1,10 @@
 import HomeScreen from "@/screen/home/HomeScreen";
 import ProfileScreen from "@/screen/profile/ProfileScreen";
-import ReviewOfUserScreen from "@/screen/review/ReviewOfUserScreen";
+import ResultScreen from "@/screen/Result/ResultScreen";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { sizeHeight, sizeScale, sizeWidth, Colors, Images } from '@/constants';
 import { StyleSheet, Image, View, Text } from 'react-native'
+import CategoryScreen from "@/screen/category/CategoryScreen";
 const Tab = createBottomTabNavigator();
 const Tabs = () => {
     return (
@@ -35,7 +36,7 @@ const Tabs = () => {
                         </View>
                     }
                 }} />
-            <Tab.Screen name="Result" component={ReviewOfUserScreen} options={
+            <Tab.Screen name="Result" component={ResultScreen} options={
                 {
                     headerShown: false, tabBarIcon: ({ focused }) => {
                         return <View style={styles.componentText} >
@@ -44,6 +45,19 @@ const Tabs = () => {
                             }} />
                             <Text style={{ color: focused ? Colors.primary : Colors.activeDefaultIcon }}>
                                 Search
+                            </Text>
+                        </View>
+                    }
+                }} />
+            <Tab.Screen name="Category" component={CategoryScreen} options={
+                {
+                    headerShown: false, tabBarIcon: ({ focused }) => {
+                        return <View style={styles.componentText} >
+                            <Image source={Images.category} resizeMode='contain' style={{
+                                width: 25, height: 25, tintColor: focused ? Colors.primary : Colors.activeDefaultIcon
+                            }} />
+                            <Text style={{ color: focused ? Colors.primary : Colors.activeDefaultIcon }}>
+                                Category
                             </Text>
                         </View>
                     }

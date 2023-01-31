@@ -14,7 +14,7 @@ const UpComing = ({ movies }) => {
                 <Text style={styles.title}>
                     UpComing
                 </Text>
-                <TouchableOpacity style={styles.actionSeeAll}>
+                <TouchableOpacity style={styles.actionSeeAll} onPress={() => navigation.navigate('AllUpComing')}>
                     <Text style={styles.textSeeAll}>
                         See all
                     </Text>

@@ -1,6 +1,6 @@
-import { FlatList, StyleSheet, Text, View,TouchableOpacity, TextInput } from 'react-native';
-import React from 'react';
-import MoviesItem from './MoviesItem';
+import { FlatList,Image, StyleSheet,searchFilter, Text, View,TouchableOpacity, TextInput } from 'react-native';
+import React, { useState,useEffect } from 'react';
+import MoviesItem from './MoviesItem'
 import Entypo from 'react-native-vector-icons/Entypo';
 const movies=[
     {
@@ -70,8 +70,14 @@ const movies=[
         mota: 'When Cpt. Artemis and her loyal soldiers are transported to a new world, they engage in a desperate battle for survival against enormous enemies with incredible powers. Feature film based on the video game by Capcom.' 
     },
 ]
+const ResultScreen = () => {
+   
+    const [masterData, setmasterData]=useState([]);
+    const [search,setsearch]=useState([''])
+    
+    
 
-const ResultList = () => {
+
   return (
     
     <View style={styles.rootView}>
@@ -84,14 +90,16 @@ const ResultList = () => {
                     <View><Text style={{color:'white',marginHorizontal:110,fontSize:20}}>Result</Text>
                     
                     </View>
-                    <TouchableOpacity style={{height:60,
-                    width:60,borderRadius:20,
-                    backgroundColor:'#222c4f'}}><Entypo name='bar-graph' style={{color: 'white', fontSize:40,marginHorizontal:10,marginVertical:10}}></Entypo></TouchableOpacity>
+                    
             
         </View>
         <View style={styles.searchview}>
         <Entypo name='magnifying-glass' style={styles.searchicon}></Entypo>
-                <TextInput style={styles.searchtext}></TextInput>
+                <TextInput style={styles.searchtext} 
+                value={search}
+                placeholder="search here"
+                onChangeText={(text) => searchFilter}
+                ></TextInput>
             </View>
        
         <View>
@@ -105,7 +113,7 @@ const ResultList = () => {
   )
 }
 
-export default ResultList
+export default ResultScreen
 
 const styles = StyleSheet.create({
     rootView:{
@@ -121,5 +129,36 @@ const styles = StyleSheet.create({
         placeholder:'search',
          backgroundColor:'#222c4f',
         borderRadius:20,flex:1},
-        searchicon:{color:'white',fontSize:30,position:'absolute',top:10,left:10}
+        searchicon:{color:'white',fontSize:30,position:'absolute',top:10,left:10},
+        avatarImg:{
+            width:100,
+            height:150,
+            backgroundColor:'gray',
+            borderRadius:20
+        },
+        rootlistView:{
+            height: 170,
+            backgroundColor: '#070d23',
+            marginLeft:20,
+            marginBottom:10,
+            flexDirection:'row'
+        },
+        contentView:{
+            backgroundColor:'#070d23',
+            flex:1,
+            paddingTop:5,
+            paddingLeft:5
+        },
+        cham:{color: '#69718b',
+         fontSize:10,
+         alignSelf:'center',
+         marginLeft:10
+        },
+        contentText:{color:'#69718b',
+        marginLeft:5
+        },
+        nametext:{color: 'white',
+        fontSize:20
+        },
+        theloaitext:{color: '#6a718a',marginTop:2}
 })

@@ -2,11 +2,11 @@ import { StyleSheet, Text, View, Image, Dimensions, TouchableOpacity, ActivityIn
 import React, { useState, useEffect } from 'react'
 
 import { Colors, sizeHeight, Images, sizeScale, sizeWidth } from '@/constants';
-import { SafeAreaView } from 'react-native-safe-area-context';
-import MovieTopRateApi from '@/controllers/api/MovieTopRateApi';
-import YouTubePlay from 'react-native-youtube-iframe';
 
+import YouTubePlay from 'react-native-youtube-iframe';
+import { useNavigation } from '@react-navigation/native';
 const InformationDetail = ({ movieItems, onPresseds, play, video }) => {
+    const navigation = useNavigation();
     var person = Object.create(movieItems)
     console.log("hihihihi" + JSON.stringify(movieItems));
     const [isReadMoreShown, setReadMoreShown] = useState(false);
@@ -48,12 +48,13 @@ const InformationDetail = ({ movieItems, onPresseds, play, video }) => {
                         {1999}
                     </Text>
                 </View>
-                <View style={styles.componentBg}>
+                <TouchableOpacity style={styles.componentBg} onPress={() => navigation.navigate('Review', { item: movieItems })}>
                     <Image source={Images.start} style={styles.icon} />
                     <Text style={styles.titleReview}>
                         {movieItems?.vote_average + "/ 10"}
                     </Text>
-                </View>
+
+                </TouchableOpacity>
                 <View style={styles.componentBg}>
                     <Image source={Images.oclock} style={styles.icon} />
                     <Text style={styles.titleReview}>

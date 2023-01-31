@@ -5,7 +5,6 @@ import HeaderDetail from './components/HeaderDetail';
 import { Colors, sizeHeight, Images, sizeScale, sizeWidth } from '@/constants';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import MovieTopRateApi from '@/controllers/api/MovieTopRateApi';
-import YouTubePlay from 'react-native-youtube-iframe';
 import InformationDetail from './components/InformationDetail';
 import SimilarItem from './components/SimilarItem';
 const MovieDetail = (movies) => {
