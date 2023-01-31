@@ -7,6 +7,7 @@ import ReviewOfUserScreen from '@/screen/review/ReviewOfUserScreen';
 import LoginScreen from '@/screen/login/LoginScreen';
 import ResultScreen from '@/screen/signup/SignUpScreen';
 import MainScreen from '@/screen/MainScreen';
+import Upcoming from '@/screen/upcoming/Upcoming';
 import AllPopulor from '@/screen/SeeALL/AllPopulor';
 import AllToprate from '@/screen/SeeALL/AllToprate';
 import AllUpComing from '@/screen/SeeALL/AllUpComing';
@@ -30,6 +31,11 @@ function RootStack() {
             <Stack.Screen name="Category" component={CategoryScreen} options={
                 { headerShown: false }} />
             <Stack.Screen name="Review" component={ReviewOfUserScreen} options={
+                { headerShown: true }} />
+            <Stack.Screen name="ResultList" component={ResultList} options={
+                { headerShown: true }} />
+            <Stack.Screen name="Upcoming" component={Upcoming} options={
+                { headerShown: true }} />
                 { headerShown: false }} />
             <Stack.Screen name="ResultScreen" component={ResultScreen} options={
                 { headerShown: false }} />
